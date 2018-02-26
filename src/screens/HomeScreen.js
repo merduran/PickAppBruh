@@ -117,6 +117,9 @@ class HomeScreen extends Component {
                             <Text style={styles.headerText}>
                                 Nelson
                             </Text>
+                            <Text style={styles.marginText}>
+                                Sport           Availability            Trend
+                            </Text>
                             <View style={styles.buttonCC}>
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity
@@ -236,8 +239,8 @@ const styles = StyleSheet.create({
         marginTop:10,
         paddingTop:15,
         paddingBottom:15,
-        marginLeft:10,
-        marginRight:10,
+        marginLeft:5,
+        marginRight:5,
         borderRadius:10,
         borderWidth: 1,
         borderColor: '#fff'
