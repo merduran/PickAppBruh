@@ -11,13 +11,18 @@ import {
     TouchableOpacity,
     PixelRatio
 } from 'react-native';
-import {NavigationToolBarIOS} from 'react-native-navigation';
+// import {NavigationToolBarIOS} from 'react-native-navigation';
+import Permissions from 'react-native-permissions';
+import permissions from './permissions';
+//import {_alertForLocationPermission} from './permissions';
 
 const {width} = Dimensions.get('window');
 var { height } = Dimensions.get('window');
 
 var box_count = 2;
 var box_height = (height-66) / box_count;
+
+// permissions._alertForLocationPermission();
 
 class HomeScreen extends Component {
 
@@ -45,7 +50,7 @@ class HomeScreen extends Component {
                                 OMAC
                             </Text>
                             <Text style={styles.marginText}>
-                            Sport           Availability            Trend
+                            Choose a Sport
                             </Text>
                             {/*<View style={styles.marginContainer}>*/}
                                 {/*<Text style={styles.textStyle}>*/}
@@ -64,53 +69,53 @@ class HomeScreen extends Component {
                                         style={[styles.button, styles.button1]}
                                         onPress={this.onPress}>
                                         {/*() => alert('Thank You')*/}
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Basketball </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button2]}
                                         onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Track </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button3]}
                                         onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Volleyball </Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button1]}
                                         onPress={() => alert('Thank You')}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Badminton </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button2]}
                                         onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Sprint </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button3]}
                                         onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Aerobic/Dance </Text>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={styles.buttonContainer}>
-                                    <TouchableOpacity
-                                        style={[styles.button, styles.button1]}
-                                        onPress={() => alert('Thank You')}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={[styles.button, styles.button2]}
-                                        onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={[styles.button, styles.button3]}
-                                        onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
-                                    </TouchableOpacity>
-                                </View>
+                                {/*<View style={styles.buttonContainer}>*/}
+                                    {/*<TouchableOpacity*/}
+                                        {/*style={[styles.button, styles.button1]}*/}
+                                        {/*onPress={() => alert('Thank You')}>*/}
+                                        {/*<Text style={styles.textStyle}> Touch Here </Text>*/}
+                                    {/*</TouchableOpacity>*/}
+                                    {/*<TouchableOpacity*/}
+                                        {/*style={[styles.button, styles.button2]}*/}
+                                        {/*onPress={this.onPress}>*/}
+                                        {/*<Text style={styles.textStyle}> Touch Here </Text>*/}
+                                    {/*</TouchableOpacity>*/}
+                                    {/*<TouchableOpacity*/}
+                                        {/*style={[styles.button, styles.button3]}*/}
+                                        {/*onPress={this.onPress}>*/}
+                                        {/*<Text style={styles.textStyle}> Touch Here </Text>*/}
+                                    {/*</TouchableOpacity>*/}
+                                {/*</View>*/}
                             </View>
                         </View>
                         <View style={[styles.box]}>
@@ -118,60 +123,60 @@ class HomeScreen extends Component {
                                 Nelson
                             </Text>
                             <Text style={styles.marginText}>
-                                Sport           Availability            Trend
+                                Choose a Sport
                             </Text>
                             <View style={styles.buttonCC}>
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button1]}
                                         onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Fitness </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button2]}
                                         onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Strength & Conditioning </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button3]}
                                         onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Spinning Room </Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button1]}
                                         onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Exercise Studios </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button2]}
                                         onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Pool </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button3]}
                                         onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
+                                        <Text style={styles.textStyle}> Squash/Tennis Court </Text>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={styles.buttonContainer}>
-                                    <TouchableOpacity
-                                        style={[styles.button, styles.button1]}
-                                        onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={[styles.button, styles.button2]}
-                                        onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={[styles.button, styles.button3]}
-                                        onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Touch Here </Text>
-                                    </TouchableOpacity>
-                                </View>
+                                {/*<View style={styles.buttonContainer}>*/}
+                                    {/*<TouchableOpacity*/}
+                                        {/*style={[styles.button, styles.button1]}*/}
+                                        {/*onPress={this.onPress}>*/}
+                                        {/*<Text style={styles.textStyle}> Touch Here </Text>*/}
+                                    {/*</TouchableOpacity>*/}
+                                    {/*<TouchableOpacity*/}
+                                        {/*style={[styles.button, styles.button2]}*/}
+                                        {/*onPress={this.onPress}>*/}
+                                        {/*<Text style={styles.textStyle}> Touch Here </Text>*/}
+                                    {/*</TouchableOpacity>*/}
+                                    {/*<TouchableOpacity*/}
+                                        {/*style={[styles.button, styles.button3]}*/}
+                                        {/*onPress={this.onPress}>*/}
+                                        {/*<Text style={styles.textStyle}> Touch Here </Text>*/}
+                                    {/*</TouchableOpacity>*/}
+                                {/*</View>*/}
                             </View>
                         </View>
                     </View>
@@ -231,7 +236,7 @@ const styles = StyleSheet.create({
 
     },
     box: {
-        height: height*.8, //set this one
+        height: height*.6, //set this one
         alignItems:'stretch',
         // justifyContent:'center',
         backgroundColor: '#56565C',
@@ -286,7 +291,7 @@ const styles = StyleSheet.create({
     },
     button: {
         width: 100,
-        height: 80,
+        height: 100,
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
@@ -294,8 +299,8 @@ const styles = StyleSheet.create({
         marginTop:10,
         paddingTop:15,
         paddingBottom:15,
-        marginLeft:10,
-        marginRight:10,
+        marginLeft:5,
+        marginRight:5,
         borderRadius:10,
         borderWidth: 1,
         borderColor: '#fff'

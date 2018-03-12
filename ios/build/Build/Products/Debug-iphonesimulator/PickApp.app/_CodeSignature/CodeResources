@@ -63,7 +63,7 @@
 		</data>
 		<key>PlugIns/PickAppTests.xctest.dSYM/Contents/Resources/DWARF/PickAppTests</key>
 		<data>
-		AsSJKfiPv1DJfe2mJQPhRVGEPe0=
+		CfoLTsKL4RNx1CLBPm9uVZeCnAU=
 		</data>
 		<key>PlugIns/PickAppTests.xctest/Info.plist</key>
 		<data>
@@ -71,7 +71,7 @@
 		</data>
 		<key>PlugIns/PickAppTests.xctest/PickAppTests</key>
 		<data>
-		+cFqVVhg08M+DbwAaVibjH4sC3o=
+		pZgfgeo/bgwbIM3rrBHDpgykMYw=
 		</data>
 		<key>PlugIns/PickAppTests.xctest/_CodeSignature/CodeResources</key>
 		<data>
@@ -207,11 +207,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			AsSJKfiPv1DJfe2mJQPhRVGEPe0=
+			CfoLTsKL4RNx1CLBPm9uVZeCnAU=
 			</data>
 			<key>hash2</key>
 			<data>
-			GjDcCSOkz9DrKIokQjvhAr8PgakAkCWQj7OABL4F0CU=
+			CwmD6IN+IOUzwvByd096Vmc7M3FXeQ3UcJtnzmO91KI=
 			</data>
 		</dict>
 		<key>PlugIns/PickAppTests.xctest/Info.plist</key>
@@ -229,11 +229,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			+cFqVVhg08M+DbwAaVibjH4sC3o=
+			pZgfgeo/bgwbIM3rrBHDpgykMYw=
 			</data>
 			<key>hash2</key>
 			<data>
-			lCIwkABksY13iG1TMqNVxPZSTqGTIGxpaLOUSRUZ6S0=
+			NNGZhTp+jX0suj2VrqhlRg7bN9jGd5cAevWxlQGW5tU=
 			</data>
 		</dict>
 		<key>PlugIns/PickAppTests.xctest/_CodeSignature/CodeResources</key>

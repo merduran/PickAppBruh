@@ -8,6 +8,7 @@ import {Navigation, ScreenVisibilityListener} from 'react-native-navigation';
 // import Drawer from './types/Drawer';
 // import ListScreen from './types/ListScreen';
 import HomeScreen from './HomeScreen';
+import permissions from './permissions';
 // import LightBox from './types/LightBox';
 // import Notification from './types/Notification';
 // import Modal from './types/Modal';
@@ -36,6 +37,7 @@ export function registerScreens() {
     // Navigation.registerComponent('example.Types.Screen', () => Drawer);
     // Navigation.registerComponent('example.Types.ListScreen', () => ListScreen);
     Navigation.registerComponent('PickApp.Screens.HomeScreen', () => HomeScreen);
+    Navigation.registerComponent('PickApp.Screens.permissions', () => permissions);
     // Navigation.registerComponent('example.Types.Modal', () => Modal);
     // Navigation.registerComponent('example.Types.LightBox', () => LightBox);
     // Navigation.registerComponent('example.Types.Notification', () => Notification);
