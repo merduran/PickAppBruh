@@ -46,6 +46,12 @@ class HomeScreen extends Component {
             title: 'Fitness',
         });
     };
+    pushPoolScreen = () => {
+        this.props.navigator.push({
+            screen: 'PickApp.Screens.poolScreen',
+            title: 'Fitness',
+        });
+    };
     render(){
         return (
             <View
@@ -80,24 +86,25 @@ class HomeScreen extends Component {
                                         onPress={this.onPress}>
                                         <Text style={styles.textStyle}> Volleyball </Text>
                                     </TouchableOpacity>
-                                </View>
-                                <View style={styles.buttonContainer}>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button1]}
                                         onPress={() => alert('Thank You')}>
                                         <Text style={styles.textStyle}> Badminton </Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={[styles.button, styles.button2]}
-                                        onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Sprint </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={[styles.button, styles.button3]}
-                                        onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Aerobic/Dance </Text>
-                                    </TouchableOpacity>
                                 </View>
+                                {/*<View style={styles.buttonContainer}>*/}
+                                    {/**/}
+                                    {/*/!*<TouchableOpacity*!/*/}
+                                        {/*/!*style={[styles.button, styles.button2]}*!/*/}
+                                        {/*/!*onPress={this.onPress}>*!/*/}
+                                        {/*/!*<Text style={styles.textStyle}> Sprint </Text>*!/*/}
+                                    {/*/!*</TouchableOpacity>*!/*/}
+                                    {/*/!*<TouchableOpacity*!/*/}
+                                        {/*/!*style={[styles.button, styles.button3]}*!/*/}
+                                        {/*/!*onPress={this.onPress}>*!/*/}
+                                        {/*/!*<Text style={styles.textStyle}> Aerobic/Dance </Text>*!/*/}
+                                    {/*/!*</TouchableOpacity>*!/*/}
+                                {/*</View>*/}
                                 {/*<View style={styles.buttonContainer}>*/}
                                     {/*<TouchableOpacity*/}
                                         {/*style={[styles.button, styles.button1]}*/}
@@ -133,32 +140,45 @@ class HomeScreen extends Component {
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button2]}
-                                        onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Strength & Conditioning </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={[styles.button, styles.button3]}
-                                        onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Spinning Room </Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={styles.buttonContainer}>
-                                    <TouchableOpacity
-                                        style={[styles.button, styles.button1]}
-                                        onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Exercise Studios </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={[styles.button, styles.button2]}
-                                        onPress={this.onPress}>
+                                        onPress={this.pushPoolScreen}>
                                         <Text style={styles.textStyle}> Pool </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
-                                        style={[styles.button, styles.button3]}
-                                        onPress={this.onPress}>
-                                        <Text style={styles.textStyle}> Squash/Tennis Court </Text>
+                                    style={[styles.button, styles.button2]}>
                                     </TouchableOpacity>
+                                    <TouchableOpacity
+                                    style={[styles.button, styles.button3]}>
+                                    </TouchableOpacity>
+                                    {/*<TouchableOpacity*/}
+                                        {/*style={[styles.button, styles.button2]}*/}
+                                        {/*onPress={this.onPress}>*/}
+                                        {/*<Text style={styles.textStyle}> Strength & Conditioning </Text>*/}
+                                    {/*</TouchableOpacity>*/}
+                                    {/*<TouchableOpacity*/}
+                                        {/*style={[styles.button, styles.button3]}*/}
+                                        {/*onPress={this.onPress}>*/}
+                                        {/*<Text style={styles.textStyle}> Spinning Room </Text>*/}
+                                    {/*</TouchableOpacity>*/}
                                 </View>
+                                {/*<View style={styles.buttonContainer}>*/}
+                                    {/*/!*<TouchableOpacity*!/*/}
+                                        {/*/!*style={[styles.button, styles.button1]}*!/*/}
+                                        {/*/!*onPress={this.onPress}>*!/*/}
+                                        {/*/!*<Text style={styles.textStyle}> Exercise Studios </Text>*!/*/}
+                                    {/*/!*</TouchableOpacity>*!/*/}
+                                    {/*<TouchableOpacity*/}
+                                        {/*style={[styles.button, styles.button2]}*/}
+                                        {/*onPress={this.pushPoolScreen}>*/}
+                                        {/*<Text style={styles.textStyle}> Pool </Text>*/}
+                                    {/*</TouchableOpacity>*/}
+                                    {/*/!*<TouchableOpacity*!/*/}
+                                        {/*/!*style={[styles.button, styles.button3]}*!/*/}
+                                        {/*/!*onPress={this.onPress}>*!/*/}
+                                        {/*/!*<Text style={styles.textStyle}> Squash/Tennis Court </Text>*!/*/}
+                                    {/*/!*</TouchableOpacity>*!/*/}
+                                {/*</View>*/}
+
+
                                 {/*<View style={styles.buttonContainer}>*/}
                                     {/*<TouchableOpacity*/}
                                         {/*style={[styles.button, styles.button1]}*/}
@@ -240,7 +260,7 @@ const styles = StyleSheet.create({
         height: height*.6, //set this one
         alignItems:'stretch',
         // justifyContent:'center',
-        backgroundColor: '#56565C',
+        backgroundColor: 'transparent',//'#56565C',
         opacity: 0.8,
         marginTop:10,
         paddingTop:15,
@@ -249,7 +269,7 @@ const styles = StyleSheet.create({
         marginRight:5,
         borderRadius:10,
         borderWidth: 1,
-        borderColor: '#fff'
+        borderColor: 'transparent'//'#fff'
     },
     // marginContainer: {
     //     flex: 1,
@@ -269,7 +289,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flex: 1,
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -291,7 +311,7 @@ const styles = StyleSheet.create({
         opacity: 1,
     },
     button: {
-        width: 100,
+        width: 300,
         height: 100,
         alignItems: 'center',
         justifyContent: 'center',

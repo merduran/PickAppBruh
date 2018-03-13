@@ -128,87 +128,8 @@ class poolScreen extends Component {
                                             <Text style={styles.textStyle}> Pop to Root </Text>
                                         </TouchableOpacity>
                                     </View>
-
-                                    {/*<View style={styles.buttonContainer}>*/}
-                                    {/*<TouchableOpacity*/}
-                                    {/*style={[styles.button, styles.button1]}*/}
-                                    {/*onPress={() => alert('Thank You')}>*/}
-                                    {/*<Text style={styles.textStyle}> Touch Here </Text>*/}
-                                    {/*</TouchableOpacity>*/}
-                                    {/*<TouchableOpacity*/}
-                                    {/*style={[styles.button, styles.button2]}*/}
-                                    {/*onPress={this.onPress}>*/}
-                                    {/*<Text style={styles.textStyle}> Touch Here </Text>*/}
-                                    {/*</TouchableOpacity>*/}
-                                    {/*<TouchableOpacity*/}
-                                    {/*style={[styles.button, styles.button3]}*/}
-                                    {/*onPress={this.onPress}>*/}
-                                    {/*<Text style={styles.textStyle}> Touch Here </Text>*/}
-                                    {/*</TouchableOpacity>*/}
-                                    {/*</View>*/}
                                 </View>
                             </View>
-                            {/*<View style={[styles.box]}>*/}
-                            {/*<Text style={styles.headerText}>*/}
-                            {/*Nelson*/}
-                            {/*</Text>*/}
-                            {/*<Text style={styles.marginText}>*/}
-                            {/*Choose a Sport*/}
-                            {/*</Text>*/}
-                            {/*<View style={styles.buttonCC}>*/}
-                            {/*<View style={styles.buttonContainer}>*/}
-                            {/*<TouchableOpacity*/}
-                            {/*style={[styles.button, styles.button1]}*/}
-                            {/*onPress={this.onPress}>*/}
-                            {/*<Text style={styles.textStyle}> Fitness </Text>*/}
-                            {/*</TouchableOpacity>*/}
-                            {/*<TouchableOpacity*/}
-                            {/*style={[styles.button, styles.button2]}*/}
-                            {/*onPress={this.onPress}>*/}
-                            {/*<Text style={styles.textStyle}> Strength & Conditioning </Text>*/}
-                            {/*</TouchableOpacity>*/}
-                            {/*<TouchableOpacity*/}
-                            {/*style={[styles.button, styles.button3]}*/}
-                            {/*onPress={this.onPress}>*/}
-                            {/*<Text style={styles.textStyle}> Spinning Room </Text>*/}
-                            {/*</TouchableOpacity>*/}
-                            {/*</View>*/}
-                            {/*<View style={styles.buttonContainer}>*/}
-                            {/*<TouchableOpacity*/}
-                            {/*style={[styles.button, styles.button1]}*/}
-                            {/*onPress={this.onPress}>*/}
-                            {/*<Text style={styles.textStyle}> Exercise Studios </Text>*/}
-                            {/*</TouchableOpacity>*/}
-                            {/*<TouchableOpacity*/}
-                            {/*style={[styles.button, styles.button2]}*/}
-                            {/*onPress={this.onPress}>*/}
-                            {/*<Text style={styles.textStyle}> Pool </Text>*/}
-                            {/*</TouchableOpacity>*/}
-                            {/*<TouchableOpacity*/}
-                            {/*style={[styles.button, styles.button3]}*/}
-                            {/*onPress={this.onPress}>*/}
-                            {/*<Text style={styles.textStyle}> Squash/Tennis Court </Text>*/}
-                            {/*</TouchableOpacity>*/}
-                            {/*</View>*/}
-                            {/*/!*<View style={styles.buttonContainer}>*!/*/}
-                            {/*/!*<TouchableOpacity*!/*/}
-                            {/*/!*style={[styles.button, styles.button1]}*!/*/}
-                            {/*/!*onPress={this.onPress}>*!/*/}
-                            {/*/!*<Text style={styles.textStyle}> Touch Here </Text>*!/*/}
-                            {/*/!*</TouchableOpacity>*!/*/}
-                            {/*/!*<TouchableOpacity*!/*/}
-                            {/*/!*style={[styles.button, styles.button2]}*!/*/}
-                            {/*/!*onPress={this.onPress}>*!/*/}
-                            {/*/!*<Text style={styles.textStyle}> Touch Here </Text>*!/*/}
-                            {/*/!*</TouchableOpacity>*!/*/}
-                            {/*/!*<TouchableOpacity*!/*/}
-                            {/*/!*style={[styles.button, styles.button3]}*!/*/}
-                            {/*/!*onPress={this.onPress}>*!/*/}
-                            {/*/!*<Text style={styles.textStyle}> Touch Here </Text>*!/*/}
-                            {/*/!*</TouchableOpacity>*!/*/}
-                            {/*/!*</View>*!/*/}
-                            {/*</View>*/}
-                            {/*</View>*/}
                         </View>
                         <NavigationToolBarIOS key='segmented' translucent={true} style={styles.toolBarStyle}>
                             {/*<Button title={"Anan, Press Me"} onPress={() => alert('Thank You')}/>*/}
@@ -352,4 +273,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default fitnessScreen;
+export default poolScreen;

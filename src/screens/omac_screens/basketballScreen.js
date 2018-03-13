@@ -57,7 +57,7 @@ class basketballScreen extends Component {
 
     onResetTo = () => {
         this.props.navigator.resetTo({
-            label: 'Navigation',
+            //label: 'Navigation',
             screen: 'PickApp.Screens.HomeScreen',
             // icon: require('../../../img/list.png'),
             //title: 'Navigation Types'
