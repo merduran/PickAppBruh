@@ -11,9 +11,9 @@ import {
     TouchableOpacity,
     PixelRatio
 } from 'react-native';
-// import {NavigationToolBarIOS} from 'react-native-navigation';
-import Permissions from 'react-native-permissions';
-import permissions from './permissions';
+import {NavigationToolBarIOS} from 'react-native-navigation';
+// import Permissions from 'react-native-permissions';
+// import permissions from './permissions';
 //import {_alertForLocationPermission} from './permissions';
 
 const {width} = Dimensions.get('window');
@@ -26,15 +26,26 @@ var box_height = (height-66) / box_count;
 
 class HomeScreen extends Component {
 
-    // static navigatorStyle = {
-    //     drawUnderNavBar: true,
-    //     navBarTranslucent:true,
-    //     navBarNoBorder: true,
-    //     navBarTextColor: 'black',
-    //     navBarButtonColor: 'black',
-    //
-    // };
+    static navigatorStyle = {
+        drawUnderNavBar: true,
+        navBarTranslucent:true,
+        navBarNoBorder: true,
+        navBarTextColor: 'black',
+        navBarButtonColor: 'black',
 
+    };
+    pushFitnessScreen = () => {
+        this.props.navigator.push({
+            screen: 'PickApp.Screens.fitnessScreen',
+            title: 'Fitness',
+        });
+    };
+    pushBasketballScreen = () => {
+        this.props.navigator.push({
+            screen: 'PickApp.Screens.basketballScreen',
+            title: 'Fitness',
+        });
+    };
     render(){
         return (
             <View
@@ -52,23 +63,11 @@ class HomeScreen extends Component {
                             <Text style={styles.marginText}>
                             Choose a Sport
                             </Text>
-                            {/*<View style={styles.marginContainer}>*/}
-                                {/*<Text style={styles.textStyle}>*/}
-                                    {/*Sport*/}
-                                {/*</Text>*/}
-                                {/*<Text style={styles.textStyle}>*/}
-                                    {/*Availability*/}
-                                {/*</Text>*/}
-                                {/*<Text style={styles.textStyle}>*/}
-                                    {/*Trend*/}
-                                {/*</Text>*/}
-                            {/*</View>*/}
                             <View style={styles.buttonCC}>
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button1]}
-                                        onPress={this.onPress}>
-                                        {/*() => alert('Thank You')*/}
+                                        onPress={this.pushBasketballScreen}>
                                         <Text style={styles.textStyle}> Basketball </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
@@ -129,7 +128,7 @@ class HomeScreen extends Component {
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity
                                         style={[styles.button, styles.button1]}
-                                        onPress={this.onPress}>
+                                        onPress={this.pushFitnessScreen}>
                                         <Text style={styles.textStyle}> Fitness </Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
@@ -183,9 +182,9 @@ class HomeScreen extends Component {
 
 
 
-                    {/*<NavigationToolBarIOS key='segmented' translucent={true} style={styles.toolBarStyle}>*/}
+                    <NavigationToolBarIOS key='segmented' translucent={true} style={styles.toolBarStyle}>
                     {/*<Button title={"Anan, Press Me"} onPress={() => alert('Thank You')}/>*/}
-                    {/*</NavigationToolBarIOS>*/}
+                    </NavigationToolBarIOS>
                 </ScrollView>
                 </LinearGradient>
                 </View>
@@ -218,24 +217,26 @@ const styles = StyleSheet.create({
         // alignItems:'center',
         // backgroundColor: '#212176',
     },
-    // toolBarStyle: {
-    //     top: 0,
-    //     width: width,
-    //     position: 'absolute',
-    //     borderTopWidth: 0,
-    //     height: 0,
-    //     backgroundColor: 'transparent'
-    //
-    // },
+    toolBarStyle: {
+        top: 0,
+        width: width,
+        position: 'absolute',
+        borderTopWidth: 0,
+        height: 0,
+        backgroundColor: 'transparent'
+
+    },
     container: {
-        // top:60,
-        width:300,
+        //top:60,
+        //bottom:60,
+        width:350,
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
 
     },
     box: {
+        top:60,
         height: height*.6, //set this one
         alignItems:'stretch',
         // justifyContent:'center',

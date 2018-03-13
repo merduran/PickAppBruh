@@ -4,7 +4,9 @@ import {Navigation, ScreenVisibilityListener} from 'react-native-navigation';
 // import Actions from './Actions';
 // import Transitions from './Transitions';
 
-// import Push from './types/Push';
+import fitnessScreen from './nelson_screens/fitnessScreen';
+import basketballScreen from './omac_screens/basketballScreen';
+
 // import Drawer from './types/Drawer';
 // import ListScreen from './types/ListScreen';
 import HomeScreen from './HomeScreen';
@@ -32,7 +34,8 @@ export function registerScreens() {
     // Navigation.registerComponent('example.Actions', () => Actions);
     // Navigation.registerComponent('example.Transitions', () => Transitions);
     //
-    // Navigation.registerComponent('example.Types.Push', () => Push);
+    Navigation.registerComponent('PickApp.Screens.fitnessScreen', () => fitnessScreen);
+    Navigation.registerComponent('PickApp.Screens.basketballScreen', () => basketballScreen);
     // Navigation.registerComponent('example.Types.Drawer', () => Drawer);
     // Navigation.registerComponent('example.Types.Screen', () => Drawer);
     // Navigation.registerComponent('example.Types.ListScreen', () => ListScreen);
