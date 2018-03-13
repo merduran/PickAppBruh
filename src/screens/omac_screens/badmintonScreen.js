@@ -11,10 +11,6 @@ import {
     PixelRatio
 } from 'react-native';
 import {NavigationToolBarIOS} from 'react-native-navigation';
-// import Permissions from 'react-native-permissions';
-// import permissions from './permissions';
-//import {_alertForLocationPermission} from './permissions';
-
 
 const {width} = Dimensions.get('window');
 var { height } = Dimensions.get('window');
@@ -24,7 +20,7 @@ var box_height = (height-66) / box_count;
 
 // permissions._alertForLocationPermission();
 
-class fitnessScreen extends Component {
+class badmintonScreen extends Component {
     constructor(props) {
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -61,7 +57,7 @@ class fitnessScreen extends Component {
 
     onResetTo = () => {
         this.props.navigator.resetTo({
-            label: 'Navigation',
+            //label: 'Navigation',
             screen: 'PickApp.Screens.HomeScreen',
             // icon: require('../../../img/list.png'),
             //title: 'Navigation Types'
@@ -72,31 +68,18 @@ class fitnessScreen extends Component {
         this.props.navigator.popToRoot();
     };
 
-    getData(title){
-        fetch('https://pickapp-test.herokuapp.com/api/users/1/inputs', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: "title="+title,
-        });
-    }
-
-
     render(){
         return (
             <View
                 style={styles.cellContainer}>
                 <LinearGradient colors={['#212176', '#A8611A', '#11113B']}
                                 style={styles.linearGradient}>
-
                     <ScrollView contentContainerStyle={styles.contentContainer}>
                         <View
                             style={styles.container}>
                             <View style={[styles.box]}>
                                 <Text style={styles.headerText}>
-                                    Fitness @ Nelson
+                                    Badminton @ OMAC
                                 </Text>
                                 <View style={styles.buttonContainer}>
                                     <View style={styles.marginContainer}>
@@ -114,6 +97,7 @@ class fitnessScreen extends Component {
                                         <TouchableOpacity
                                             style={[styles.button, styles.button1]}
                                             onPress={this.onPushAnother}>
+                                            {/*() => alert('Thank You')*/}
                                             <Text style={styles.textStyle}> Push another </Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity
@@ -131,7 +115,7 @@ class fitnessScreen extends Component {
                             </View>
                         </View>
                         <NavigationToolBarIOS key='segmented' translucent={true} style={styles.toolBarStyle}>
-                        {/*<Button title={"Anan, Press Me"} onPress={() => alert('Thank You')}/>*/}
+                            {/*<Button title={"Anan, Press Me"} onPress={() => alert('Thank You')}/>*/}
                         </NavigationToolBarIOS>
                     </ScrollView>
                 </LinearGradient>
@@ -182,7 +166,7 @@ const styles = StyleSheet.create({
 
     },
     box: {
-        height: height*.8, //set this one
+        height: height*.6, //set this one
         alignItems:'stretch',
         // justifyContent:'center',
         backgroundColor: '#56565C',
@@ -272,4 +256,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default fitnessScreen;
+export default badmintonScreen;

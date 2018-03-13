@@ -96,7 +96,7 @@ class poolScreen extends Component {
                             style={styles.container}>
                             <View style={[styles.box]}>
                                 <Text style={styles.headerText}>
-                                    Fitness @ Nelson
+                                    Pool @ Nelson
                                 </Text>
                                 <View style={styles.buttonContainer}>
                                     <View style={styles.marginContainer}>

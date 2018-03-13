@@ -5,8 +5,12 @@ import {Navigation, ScreenVisibilityListener} from 'react-native-navigation';
 // import Transitions from './Transitions';
 
 import fitnessScreen from './nelson_screens/fitnessScreen';
-import basketballScreen from './omac_screens/basketballScreen';
 import poolScreen from './nelson_screens/poolScreen';
+
+import basketballScreen from './omac_screens/basketballScreen';
+import trackScreen from './omac_screens/trackScreen';
+import volleyballScreen from './omac_screens/volleyballScreen';
+import badmintonScreen from './omac_screens/badmintonScreen';
 // import Drawer from './types/Drawer';
 // import ListScreen from './types/ListScreen';
 import HomeScreen from './HomeScreen';
@@ -36,7 +40,12 @@ export function registerScreens() {
     //
     Navigation.registerComponent('PickApp.Screens.fitnessScreen', () => fitnessScreen);
     Navigation.registerComponent('PickApp.Screens.poolScreen', () => poolScreen);
+
     Navigation.registerComponent('PickApp.Screens.basketballScreen', () => basketballScreen);
+    Navigation.registerComponent('PickApp.Screens.trackScreen', () => trackScreen);
+    Navigation.registerComponent('PickApp.Screens.volleyballScreen', () => volleyballScreen);
+    Navigation.registerComponent('PickApp.Screens.badmintonScreen', () => badmintonScreen);
+
     // Navigation.registerComponent('example.Types.Drawer', () => Drawer);
     // Navigation.registerComponent('example.Types.Screen', () => Drawer);
     // Navigation.registerComponent('example.Types.ListScreen', () => ListScreen);
