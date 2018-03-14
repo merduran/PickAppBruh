@@ -89,33 +89,37 @@ class basketballScreen extends Component {
                                     <View style={styles.marginContainer}>
                                         <Text style={styles.textStyle}> Number of People </Text>
                                     </View>
+                                    <TouchableOpacity
+                                        style={[styles.button, styles.button1]}
+                                        onPress={this.onPushAnother}>
+                                        {/*() => alert('Thank You')*/}
+                                        <Text style={styles.textStyle}> Push another </Text>
+                                    </TouchableOpacity>
                                     <View style={styles.marginContainer}>
-                                        <Text style={styles.textStyle}> Availability </Text>
+                                        <Text style={styles.textStyle}> Predicted Number of Fields </Text>
                                     </View>
+                                    <TouchableOpacity
+                                        style={[styles.button, styles.button2]}
+                                        onPress={this.onResetTo}>
+                                        <Text style={styles.textStyle}> Reset To </Text>
+                                    </TouchableOpacity>
                                     <View style={styles.marginContainer}>
                                         <Text style={styles.textStyle}> Trend </Text>
                                     </View>
+                                    <TouchableOpacity
+                                        style={[styles.button, styles.button3]}
+                                        onPress={this.onPopToRoot}>
+                                        <Text style={styles.textStyle}> Pop to Root </Text>
+                                    </TouchableOpacity>
                                 </View>
-                                <View style={styles.buttonCC}>
-                                    <View style={styles.buttonContainer}>
-                                        <TouchableOpacity
-                                            style={[styles.button, styles.button1]}
-                                            onPress={this.onPushAnother}>
-                                            {/*() => alert('Thank You')*/}
-                                            <Text style={styles.textStyle}> Push another </Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                            style={[styles.button, styles.button2]}
-                                            onPress={this.onResetTo}>
-                                            <Text style={styles.textStyle}> Reset To </Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                            style={[styles.button, styles.button3]}
-                                            onPress={this.onPopToRoot}>
-                                            <Text style={styles.textStyle}> Pop to Root </Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
+                                {/*<View style={styles.buttonCC}>*/}
+                                    {/*<View style={styles.buttonContainer}>*/}
+                                        {/**/}
+                                        {/**/}
+                                        {/**/}
+                                        {/**/}
+                                    {/*</View>*/}
+                                {/*</View>*/}
                             </View>
                         </View>
                         <NavigationToolBarIOS key='segmented' translucent={true} style={styles.toolBarStyle}>
@@ -170,7 +174,7 @@ const styles = StyleSheet.create({
 
     },
     box: {
-        height: height*.6, //set this one
+        height: height*.8, //set this one
         alignItems:'stretch',
         // justifyContent:'center',
         backgroundColor: '#56565C',
@@ -185,17 +189,17 @@ const styles = StyleSheet.create({
         borderColor: '#fff'
     },
     marginContainer: {
-        width: 100,
-        height: 100,
+        width: 300,
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
         // opacity: 0.8,
-        marginTop:10,
-        paddingTop:15,
-        paddingBottom:15,
-        marginLeft:5,
-        marginRight:5,
+        // marginTop:10,
+        // paddingTop:15,
+        // paddingBottom:15,
+        // marginLeft:5,
+        // marginRight:5,
         // borderRadius:10,
         // borderWidth: 1,
         backgroundColor: 'transparent'
@@ -209,7 +213,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flex: 1,
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -231,7 +235,7 @@ const styles = StyleSheet.create({
         opacity: 1,
     },
     button: {
-        width: 100,
+        width: 300,
         height: 100,
         alignItems: 'center',
         justifyContent: 'center',
