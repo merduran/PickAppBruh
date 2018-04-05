@@ -1,8 +1,8 @@
 dependencies: \
-  /Users/sinem_derman/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/Yoga.cpp \
-  /Users/sinem_derman/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/Yoga.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/YGEnums.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/YGMacros.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/YGNode.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/Yoga-internal.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/YGNodePrint.h
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/Yoga.cpp \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/Yoga.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/YGEnums.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/YGMacros.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/YGNode.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/Yoga-internal.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/ReactCommon/yoga/yoga/YGNodePrint.h

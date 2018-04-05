@@ -4,13 +4,17 @@ import {Navigation, ScreenVisibilityListener} from 'react-native-navigation';
 // import Actions from './Actions';
 // import Transitions from './Transitions';
 
-import fitnessScreen from './nelson_screens/fitnessScreen';
-import poolScreen from './nelson_screens/poolScreen';
+import FitnessScreen from './nelson_screens/FitnessScreen';
+import PoolScreen from './nelson_screens/PoolScreen';
 
-import basketballScreen from './omac_screens/basketballScreen';
-import trackScreen from './omac_screens/trackScreen';
-import volleyballScreen from './omac_screens/volleyballScreen';
-import badmintonScreen from './omac_screens/badmintonScreen';
+import BasketballScreen from './omac_screens/BasketballScreen';
+import TrackScreen from './omac_screens/TrackScreen';
+import VolleyballScreen from './omac_screens/VolleyballScreen';
+import BadmintonScreen from './omac_screens/BadmintonScreen';
+import FacilityButtonBasketball from './FacilityButtonBasketball';
+import FacilityButtonPool from './FacilityButtonPool';
+import FacilityButtonTrack from './FacilityButtonTrack';
+
 // import Drawer from './types/Drawer';
 // import ListScreen from './types/ListScreen';
 import HomeScreen from './HomeScreen';
@@ -38,13 +42,17 @@ export function registerScreens() {
     // Navigation.registerComponent('example.Actions', () => Actions);
     // Navigation.registerComponent('example.Transitions', () => Transitions);
     //
-    Navigation.registerComponent('PickApp.Screens.fitnessScreen', () => fitnessScreen);
-    Navigation.registerComponent('PickApp.Screens.poolScreen', () => poolScreen);
+    Navigation.registerComponent('PickApp.Screens.FitnessScreen', () => FitnessScreen);
+    Navigation.registerComponent('PickApp.Screens.PoolScreen', () => PoolScreen);
+    Navigation.registerComponent('PickApp.Screens.BasketballScreen', () => BasketballScreen);
+    Navigation.registerComponent('PickApp.Screens.TrackScreen', () => TrackScreen);
+    Navigation.registerComponent('PickApp.Screens.VolleyballScreen', () => VolleyballScreen);
+    Navigation.registerComponent('PickApp.Screens.BadmintonScreen', () => BadmintonScreen);
 
-    Navigation.registerComponent('PickApp.Screens.basketballScreen', () => basketballScreen);
-    Navigation.registerComponent('PickApp.Screens.trackScreen', () => trackScreen);
-    Navigation.registerComponent('PickApp.Screens.volleyballScreen', () => volleyballScreen);
-    Navigation.registerComponent('PickApp.Screens.badmintonScreen', () => badmintonScreen);
+
+    Navigation.registerComponent('PickApp.Screens.FacilityButtonBasketball', () => FacilityButtonBasketball);
+    Navigation.registerComponent('PickApp.Screens.FacilityButtonPool', () => FacilityButtonPool);
+    Navigation.registerComponent('PickApp.Screens.FacilityButtonTrack', () => FacilityButtonTrack);
 
     // Navigation.registerComponent('example.Types.Drawer', () => Drawer);
     // Navigation.registerComponent('example.Types.Screen', () => Drawer);

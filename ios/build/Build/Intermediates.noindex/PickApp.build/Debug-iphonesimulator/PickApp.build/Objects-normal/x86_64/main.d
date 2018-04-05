@@ -1,2 +1,2 @@
-dependencies: /Users/sinem_derman/PickApp/ios/PickApp/main.m \
-  /Users/sinem_derman/PickApp/ios/PickApp/AppDelegate.h
+dependencies: /Users/muraterduran/Desktop/PickApp/ios/PickApp/main.m \
+  /Users/muraterduran/Desktop/PickApp/ios/PickApp/AppDelegate.h

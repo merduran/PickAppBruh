@@ -1,22 +1,22 @@
 dependencies: \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Views/ScrollView/RCTScrollContentView.m \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Views/ScrollView/RCTScrollContentView.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Views/RCTView.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Views/RCTBorderStyle.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Views/RCTComponent.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Views/RCTPointerEvents.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTAssert.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTDefines.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Views/UIView+React.h \
-  /Users/sinem_derman/PickApp/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
-  /Users/sinem_derman/PickApp/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Views/ScrollView/RCTScrollView.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Views/RCTAutoInsetsProtocol.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTEventDispatcher.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTBridge.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTBridgeModule.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTFrameUpdate.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTInvalidating.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Views/ScrollView/RCTScrollableProtocol.h
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Views/ScrollView/RCTScrollContentView.m \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Views/ScrollView/RCTScrollContentView.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Views/RCTView.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Views/RCTComponent.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Views/UIView+React.h \
+  /Users/muraterduran/Desktop/PickApp/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/muraterduran/Desktop/PickApp/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Views/ScrollView/RCTScrollView.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Views/RCTAutoInsetsProtocol.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Views/ScrollView/RCTScrollableProtocol.h

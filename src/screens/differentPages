@@ -1,0 +1,29 @@
+differentPages:
+	IMPORTANT: ENTRY SCREEN
+// _______________________
+
+    // <View style={styles.gymContainer}>
+    //             <View style={styles.headerContainer}>
+    //                  <Text style={styles.headerText}>{this.state.gymName}</Text>
+    //                  <Text style={styles.marginText}>Choose a Sport</Text>
+    //              </View>
+    //              <View style={styles.buttonCC}>
+    //                 {this.createSubGyms()}
+    //              </View>
+    //         </View>
+
+
+    INTERMEDIATE BTWN ENTRY AND SUBGYM
+    //
+    <TouchableOpacity style={styles.subGymHeader} onPress={() => {this.state.changeTitle(this.state.subGymName)}; }>
+			    <Text style={styles.marginText}>
+			    	{this.state.subGymName}
+			    </Text>
+			</TouchableOpacity>
+
+
+<TouchableOpacity style={styles.subGymHeader} onPress={() => this.state.changeTitle(this.state.subGymName)}>
+			    <Text style={styles.marginText}>
+			    	{this.state.subGymName}
+			    </Text>
+			</TouchableOpacity>

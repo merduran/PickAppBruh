@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/sinem_derman/PickApp/node_modules/react-native-navigation/ios/UIViewController+Rotation.m \
-  /Users/sinem_derman/PickApp/node_modules/react-native-navigation/ios/UIViewController+Rotation.h
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native-navigation/ios/UIViewController+Rotation.m \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native-navigation/ios/UIViewController+Rotation.h

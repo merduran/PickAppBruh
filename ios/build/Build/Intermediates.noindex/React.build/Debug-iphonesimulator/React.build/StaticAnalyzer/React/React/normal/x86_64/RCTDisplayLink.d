@@ -1,10 +1,10 @@
 dependencies: \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTDisplayLink.m \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTDisplayLink.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTAssert.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTDefines.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTBridgeModule.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTFrameUpdate.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTModuleData.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Base/RCTInvalidating.h \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Profiler/RCTProfile.h
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTDisplayLink.m \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTDisplayLink.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTModuleData.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Profiler/RCTProfile.h

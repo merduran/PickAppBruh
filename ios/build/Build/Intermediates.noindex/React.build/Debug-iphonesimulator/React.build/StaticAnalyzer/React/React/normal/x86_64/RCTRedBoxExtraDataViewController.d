@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Modules/RCTRedBoxExtraDataViewController.m \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/Modules/RCTRedBoxExtraDataViewController.h
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Modules/RCTRedBoxExtraDataViewController.m \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/Modules/RCTRedBoxExtraDataViewController.h

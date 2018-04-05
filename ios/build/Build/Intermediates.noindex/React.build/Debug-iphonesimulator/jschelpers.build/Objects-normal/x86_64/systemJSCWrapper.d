@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/sinem_derman/PickApp/node_modules/react-native/ReactCommon/jschelpers/systemJSCWrapper.cpp \
-  /Users/sinem_derman/PickApp/node_modules/react-native/React/../ReactCommon/jschelpers/JSCWrapper.h
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/ReactCommon/jschelpers/systemJSCWrapper.cpp \
+  /Users/muraterduran/Desktop/PickApp/node_modules/react-native/React/../ReactCommon/jschelpers/JSCWrapper.h
