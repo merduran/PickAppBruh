@@ -11,6 +11,7 @@ import {
 import GymButtonContainer from './GymButtonContainer.js';
 import { NavigationToolBarIOS } from 'react-native-navigation';
 
+
 export default class GymContainer extends Component{
 	constructor(props){
 		super(props);
@@ -24,6 +25,7 @@ export default class GymContainer extends Component{
             availability: this.props.availability,
 		};
         this.header = this.state.gymName;
+        // console.log("screenWidth = ", _window.);
         // this.subHeader = 'Choose a Sport';
 	}
 
@@ -207,11 +209,11 @@ export default class GymContainer extends Component{
 		);
 	}
 }
-
+const Dimensions = require('Dimensions');
+var _window = Dimensions.get('window');
 const styles = StyleSheet.create({
 
     navigation: {
-        color: 'white',
         opacity: 0.9,
         color: '#14171A',
     },
@@ -223,7 +225,7 @@ const styles = StyleSheet.create({
     gymContainer: {
         backgroundColor: 'white',
         marginTop: 20,
-        marginBottom: 20,
+        marginBottom: 0,
         borderRadius: 1,
         // borderWidth: 2,
         // borderColor: '#E6ECF0',
@@ -232,6 +234,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.4,
         shadowRadius: 2,
+        width: _window.width,
     }, 
 
     buttonCC: {

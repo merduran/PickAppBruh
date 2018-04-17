@@ -23,7 +23,8 @@ export default class GymButtonContainer extends Component{
 			hideAllDivs: this.props.hideAllDivs,
 			hideAll: this.props.hideAll,
 			availability: '',
-			users: ''
+			users: '',
+			openHours: '',
 			// availability: this.props.availability,
 			// changeAvailability: this.props.changeAvailability,
 		};
@@ -40,6 +41,7 @@ export default class GymButtonContainer extends Component{
 		this.fetchAvailabilityData(this, 'users/' + gymNumber + '/' + this.state.subGymName.toLowerCase());
 		var myThis = this;
 		setInterval(function(){ myThis.fetchAvailabilityData(myThis, 'users/' + gymNumber + '/' + myThis.state.subGymName.toLowerCase())}, 2000);
+		this.fetchHours();
 	}
 
 	fetchAvailabilityData(myThis, urlExt){
@@ -127,6 +129,91 @@ export default class GymButtonContainer extends Component{
 	// 	}
 	// }
 
+	fetchHours(){
+		fetch('https://pickapp-test.herokuapp.com/api/calendar/' + this.state.gymName.toLowerCase())
+	    .then(function(response) {
+        	return response.json();
+    	})
+    	.then(function(myJson) {
+    		var today = myJson[0].split(" - ");
+    		var startHour = myJson[0].split(" - ")[0].split("T");
+    		var endHour = myJson[0].split(" - ")[1];
+    		console.log("today = ", today)
+    		// console.log("OPEN HOURS = ", myJson[0]);
+    		// event = event.split(" - ");
+            event[0] = (event[0].replace("T", "X")).split("X");
+            date = event[0][0];
+            startTime = event[0][1].split("-")[0];
+            endTime = ((event[1].replace("T", "X")).split("X"))[1].split('-')[0];
+            eventTitle = event[2];
+
+    		// console.log("DATE = ", new Date().toISOString().split('T')[0])
+    	});
+	}
+
+	fetchCalendarData(myThis, urlExt){
+    console.log("Still fetching...");
+    fetch('https://pickapp-test.herokuapp.com/api/calendar/' + urlExt)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(myJson) {
+        console.log("myJson = ", myJson);
+        var date, startTime, endTime, eventTitle, court;
+        myThis.events = myJson.map((event) => {
+            event = event.split(" - ");
+            event[0] = (event[0].replace("T", "X")).split("X");
+            date = event[0][0];
+            startTime = event[0][1].split("-")[0];
+            endTime = ((event[1].replace("T", "X")).split("X"))[1].split('-')[0];
+            eventTitle = event[2];
+            // console.log("event = ", event);
+            if (event.length === 4){ court = event[3]; } 
+            else { 
+              eventTitle = event[2].split("-")[0]; 
+              if (event[2].split("-")[1] !== undefined ) { court = event[2].split("-")[1]; }
+              // console.log("COURT = ", court); console.log("eventTitle = ", eventTitle);
+              // if (event.length === 3){ eventTitle = }
+            }
+            // console.log("YARRAK");
+            
+            // console.log("eventTitle = ", eventTitle);
+
+            if (court !== undefined){
+              var courts = [];
+              if (court.includes('1')){ courts.push(1); } 
+              if (court.includes('2')){ courts.push(2); } 
+              if (court.includes('3')){ courts.push(3); } 
+              if (court.includes('4')){ courts.push(4); }
+              if (courts.length == 0){
+                if (court.includes('ower')){
+                  courts.push(1);
+                  courts.push(2);
+                  courts.push(3);
+                  courts.push(4);
+                } else if (court.includes('olleyball')){
+                  courts.push(4)
+                }
+              }
+            }
+            
+            // console.log("AMJIK");
+            return(
+                {
+                   date: date,
+                   startTime: startTime,
+                   endTime: endTime,
+                   eventTitle: eventTitle,
+                   courts: courts
+                }
+            );
+        });
+        myThis.setState({
+            render: true,
+        });
+    });
+  }
+
 	render(){
 		return(
 			<TouchableOpacity style={styles.subGym} onPress={() => this.props.pushScreen("FacilityCalendarPage", {gymName: this.state.gymName, subGymName: this.state.subGymName})}>
@@ -177,6 +264,10 @@ const styles = StyleSheet.create({
     	margin: 5,
     	width: 240,
     	borderRadius: 3,
+    	shadowColor: '#000',
+        shadowOffset: { width: 1, height: 1 },
+        // shadowOpacity: 0.4,
+        shadowRadius: 2,
     },
 
     subGymTab: {

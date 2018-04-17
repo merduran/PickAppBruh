@@ -15,12 +15,21 @@ export default class AgendaScreen extends Component {
 
   render() {
     var urlExt;
+    console.log("this.props.gymName = ", this.props.gymName);
+        console.log("this.props.subgymName = ", this.props.subGymName);
+
     if (this.props.gymName === "Nelson"){
-      urlExt = this.props.subGymName;
+      if (this.props.subGymName === "Fitness"){ 
+        urlExt = this.props.gymName; 
+      } else { 
+        console.log("POOL");
+        urlExt = this.props.subGymName; 
+      }
     } else {
       urlExt = "basketball";
     }
-    console.log("NELSON");
+    // urlExt = "fitness"
+    console.log("urlExt = ", urlExt);
     return (
       <FacilityCalendar urlExt={urlExt.toLowerCase()}></FacilityCalendar>
     );
