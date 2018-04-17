@@ -7,6 +7,8 @@ import {
     Button,
     TouchableOpacity
 } from 'react-native';
+import FacilityCalendar from './FacilityCalendar.js';
+
 
 export default class GymButtonContainer extends Component{
 	constructor(props){
@@ -21,49 +23,65 @@ export default class GymButtonContainer extends Component{
 			hideAllDivs: this.props.hideAllDivs,
 			hideAll: this.props.hideAll,
 			availability: '',
+			users: ''
 			// availability: this.props.availability,
 			// changeAvailability: this.props.changeAvailability,
 		};
-		// this.availability;
+		var gymNumber;
 		switch (this.state.gymName){
 			case 'Nelson':
-				users = 1;
+				gymNumber = 1;
 				break;
 			case 'OMAC':
-				users = 2;
+				gymNumber = 2;
 				break;
 		}
+		// this.fetchCalendarData()
+		this.fetchAvailabilityData(this, 'users/' + gymNumber + '/' + this.state.subGymName.toLowerCase());
 		var myThis = this;
-		fetch('https://pickapp-test.herokuapp.com/api/users/' + users + '/' + myThis.state.subGymName.toLowerCase())
-			.then(function(response) {
-			    return response.json();
-			})
-			.then(function(myJson) {
-				var avail;
-				if (myJson.availability !== undefined) avail = myJson.availability;
-				else if (myJson.count !== undefined) avail = myJson.count;
-				// myThis.state.changeAvailability(avail);
-				myThis.setState({
-					availability: avail,
-				});
-			});
-		setInterval(function(){
-			// console.log('https://pickapp-test.herokuapp.com/api/users/' + users + '/' + myThis.state.subGymName.toLowerCase());
-			fetch('https://pickapp-test.herokuapp.com/api/users/' + users + '/' + myThis.state.subGymName.toLowerCase())
-			.then(function(response) {
-			    return response.json();
-			})
-			.then(function(myJson) {
-				var avail;
-				if (myJson.availability !== undefined) avail = myJson.availability;
-				else if (myJson.count !== undefined) avail = myJson.count;
-				// myThis.state.changeAvailability(avail);
-				myThis.setState({
-					availability: avail,
-				});
-			});
-		}, 10000);
+		setInterval(function(){ myThis.fetchAvailabilityData(myThis, 'users/' + gymNumber + '/' + myThis.state.subGymName.toLowerCase())}, 2000);
 	}
+
+	fetchAvailabilityData(myThis, urlExt){
+		fetch('https://pickapp-test.herokuapp.com/api/' + urlExt)
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(myJson) {
+			var avail;
+			switch(myJson.availability){
+				case undefined: 
+					avail = myJson.count;
+					break;
+				default: 
+					avail = myJson.availability
+			}	
+			myThis.setState({
+				availability: avail,
+			});
+		});
+	}
+
+	// fetchCalendarData(){
+	// 	fetch('https://pickapp-test.herokuapp.com/api/calendar')
+	// 	.then(function(response) {
+	// 		return response.json();
+	// 	})
+	// 	.then(function(myJson) {
+	// 		console.log("CALENDAR = ", myJson)
+	// 		// var avail;
+	// 		// switch(myJson.availability){
+	// 		// 	case undefined: 
+	// 		// 		avail = myJson.count;
+	// 		// 		break;
+	// 		// 	default: 
+	// 		// 		avail = myJson.availability
+	// 		// }	
+	// 		// myThis.setState({
+	// 		// 	availability: avail,
+	// 		// });
+	// 	});
+	// }
 
 
 	pressHandler(){
@@ -110,10 +128,8 @@ export default class GymButtonContainer extends Component{
 	// }
 
 	render(){
-		console.log("FUCK ML BRUH");
-		console.log("LORDE YAYAYA = ", this.state.availability);
 		return(
-			<View style={styles.subGym}>
+			<TouchableOpacity style={styles.subGym} onPress={() => this.props.pushScreen("FacilityCalendarPage", {gymName: this.state.gymName, subGymName: this.state.subGymName})}>
 				<View style={styles.subGymSubHeader}>
 					<Text style={styles.marginText}>
 				    	{this.state.subGymName}
@@ -131,7 +147,7 @@ export default class GymButtonContainer extends Component{
 						<TouchableOpacity style={styles.subGymHeader} onPress={() => this.pressHandler()}><Text style={{fontSize: 7, color: '#657786', textAlign: 'center'}}>See more</Text></TouchableOpacity>
 					</View>
 				</View>
-			</View>
+			</TouchableOpacity>
 		);
 	}
 }

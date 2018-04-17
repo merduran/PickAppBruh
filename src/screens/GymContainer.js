@@ -9,10 +9,12 @@ import {
 } from 'react-native';
 
 import GymButtonContainer from './GymButtonContainer.js';
+import { NavigationToolBarIOS } from 'react-native-navigation';
 
 export default class GymContainer extends Component{
 	constructor(props){
 		super(props);
+        // console.log("MURAT = ", this.props.navigator);
 		this.state = {
 			gymName: this.props.gymName,
 			subGymNames: this.props.subGymNames,
@@ -20,26 +22,18 @@ export default class GymContainer extends Component{
             displayMainPageHeader: this.props.displayMainPageHeader,
             hideAll: this.props.hideAll,
             availability: this.props.availability,
-
 		};
         this.header = this.state.gymName;
-        this.subHeader = 'Choose a Sport';
+        // this.subHeader = 'Choose a Sport';
 	}
 
-	// pushScreen(sport){
- //        this.props.navigator.push({
- //            screen: 'PickApp.Screens.' + sport + 'Screen',
- //            title: sport,
- //        });
- //    };
-
-    hideAllDivs(){
-        console.log("HIDE AND SEEK? ", this.state.hideAll);
-        this.setState({
-            hideAll: !this.state.hideAll,
-        });
-        console.log("AN? ", this.state.hideAll);
-    }
+    // hideAllDivs(){
+    //     console.log("HIDE AND SEEK? ", this.state.hideAll);
+    //     this.setState({
+    //         hideAll: !this.state.hideAll,
+    //     });
+    //     console.log("AN? ", this.state.hideAll);
+    // }
 
 	createFunctionalityDivs(){
 		var funcDivs = [];
@@ -61,10 +55,8 @@ export default class GymContainer extends Component{
                 </GymButtonContainer>
 	    	);
 		}
-        console.log("AMK = ", !this.state.hideAll)
-        if (!this.state.displayMainPageHeader && !this.state.hideAll){
-            return funcDivs;
-        }
+        // if (!this.state.displayMainPageHeader && !this.state.hideAll){
+        return funcDivs;
 	}
 
     createSubGyms(){
@@ -82,23 +74,25 @@ export default class GymContainer extends Component{
                     hideAllDivs={this.hideAllDivs}
                     displayMainPageHeader={this.state.displayMainPageHeader}
                     availability={this.state.availability}
-                    changeAvailability={this.changeAvailability.bind(this)}>
+                    changeAvailability={this.changeAvailability.bind(this)}
+                    navigator={this.props.navigator} 
+                    pushScreen={this.props.pushScreen.bind(this)}>
                 </GymButtonContainer>
             );
         }
-        console.log("YEETEER = ", !this.state.hideAll)
-        if (this.state.displayMainPageHeader && !this.state.hideAll){
-            return subGyms;
-        }
+        // if (this.state.displayMainPageHeader && !this.state.hideAll){
+        //     return subGyms;
+        // }
+        return subGyms;
     }
 
-    displayFunctionScreen(){
-        if (!this.state.displayMainPageHeader && this.state.hideAll){
-            return(
-                <Text style={{color: 'yellow'}}>{this.state.availability}</Text>
-            );
-        }
-    }
+    // displayFunctionScreen(){
+    //     if (!this.state.displayMainPageHeader && this.state.hideAll){
+    //         return(
+    //             <Text style={{color: 'yellow'}}>{this.state.availability}</Text>
+    //         );
+    //     }
+    // }
 
     changeTitle(titleFromButton){
         // console.log("ANNEN = ", titleFromButton);
@@ -145,29 +139,29 @@ export default class GymContainer extends Component{
 // IMPORTANT: PRESS SCREEN
 // _______________________
 
-    displayNavigation(){
-        if (!this.state.displayMainPageHeader){
-            return(
-                <TouchableOpacity onPress={() => this.goToMainPage()}>
-                    <Text style={styles.navigation}>Go Back</Text>
-                </TouchableOpacity>
-            );
-        }
-    }
+    // displayNavigation(){
+    //     if (!this.state.displayMainPageHeader){
+    //         return(
+    //             <TouchableOpacity onPress={() => this.goToMainPage()}>
+    //                 <Text style={styles.navigation}>Go Back</Text>
+    //             </TouchableOpacity>
+    //         );
+    //     }
+    // }
 
-    goToMainPage(){
-        if (this.state.hideAll){
-            this.setState({
-                displayMainPageHeader: false,
-                hideAll: false,
-            });
-        } else {
-            this.setState({
-                displayMainPageHeader: true,
-            });
-        }
+    // goToMainPage(){
+    //     if (this.state.hideAll){
+    //         this.setState({
+    //             displayMainPageHeader: false,
+    //             hideAll: false,
+    //         });
+    //     } else {
+    //         this.setState({
+    //             displayMainPageHeader: true,
+    //         });
+    //     }
         
-    }
+    // }
 
     changeToSubGym(){
         this.setState({
@@ -176,41 +170,40 @@ export default class GymContainer extends Component{
     }
 
     displayHeader(){
-        var header;
-        var subHeader;
-        if (this.state.displayMainPageHeader){
-            if (!this.state.hideAll){
-                this.header = this.state.gymName;
-                this.subHeader = 'Choose a Sport';
-            }
-        } else {
-            if (!this.state.hideAll){
-                this.header = this.state.subGymClicked;
-                this.subHeader = this.state.gymName;    
-            }
-        }
+        // var header = this.state.gymName;;
+        // if (this.state.displayMainPageHeader){
+        //     if (!this.state.hideAll){
+        //         this.header = this.state.gymName;
+        //         this.subHeader = 'Choose a Sport';
+        //     }
+        // } else {
+        //     if (!this.state.hideAll){
+        //         this.header = this.state.subGymClicked;
+        //         this.subHeader = this.state.gymName;    
+        //     }
+        // }
         return(
+
             <View style={styles.headerContainer}>   
                 <View style={styles.headerTextContainer}>
                     <Text style={styles.headerText}>{this.header}</Text>
-                    <Text style={styles.marginText}>{this.subHeader}</Text>
                 </View>
-                {this.displayNavigation()}
             </View>
+
         );
     }
 
 	render(){
         // console.log("MURAT = ", this.state.subGymClicked);
 		return(
-			<View style={styles.gymContainer}>
+
+			<TouchableOpacity style={styles.gymContainer}>
 	           {this.displayHeader()}
 	             <View style={styles.buttonCC}>
 	 	            {this.createSubGyms()}
-                    {this.createFunctionalityDivs()}
-                    {this.displayFunctionScreen()}
 	             </View>
-	        </View>
+	        </TouchableOpacity>
+
 		);
 	}
 }

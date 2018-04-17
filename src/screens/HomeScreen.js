@@ -11,7 +11,6 @@ import {
     TouchableOpacity,
     PixelRatio
 } from 'react-native';
-import {NavigationToolBarIOS} from 'react-native-navigation';
 import GymContainer from './GymContainer.js';
 import FacilityButtonBasketball from './FacilityButtonBasketball.js';
 import FacilityButtonPool from './FacilityButtonPool.js';
@@ -21,11 +20,11 @@ import FacilityButtonTrack from './FacilityButtonTrack.js';
 // import permissions from './permissions';
 //import {_alertForLocationPermission} from './permissions';
 
-const {width} = Dimensions.get('window');
-var { height } = Dimensions.get('window');
+// const {width} = Dimensions.get('window');
+// var { height } = Dimensions.get('window');
 
-var box_count = 2;
-var box_height = (height-66) / box_count;
+// var box_count = 2;
+// var box_height = (height-66) / box_count;
 
 // permissions._alertForLocationPermission();
 
@@ -33,120 +32,98 @@ class HomeScreen extends Component {
 
     constructor(props){
         super(props);
-        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+        // this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
         this.state = {
-            displayDataForm: false,
-            buttonText: 'Click to Enter Data'
+            // displayDataForm: false,
+            // buttonText: 'Click to Enter Data'
+            screen: ''
         };
     }
 
-    static navigatorStyle = {
-        drawUnderNavBar: true,
-        navBarTranslucent:true,
-        navBarNoBorder: true,
-        navBarTextColor: 'black',
-        navBarButtonColor: 'black',
-    };
+    // static navigatorStyle = {
+    //     drawUnderNavBar: true,
+    //     navBarTranslucent:true,
+    //     navBarNoBorder: true,
+    //     navBarTextColor: 'black',
+    //     navBarButtonColor: 'black',
+    // };
 
-    onNavigatorEvent(event) {
-        if (event.type === 'PreviewActionPress') {
-            if (event.id === 'action-cancel') {
-                Alert.alert('Cancelled');
-            }
-            if (event.id === 'action-delete-sure') {
-                Alert.alert('Deleted');
-            }
-        }
-    }
-
-    renderDataInputForm(){
-        if (this.state.displayDataForm){
-            return(
-                <View style={styles.container}>
-                    <View style={styles.form_container}>
-                        <Text style={styles.header_1}>Click On a Facility To Add People</Text>
-                        <Text style={styles.header_2}>OMAC</Text>
-                        <View style={{flexDirection: 'row'}}>
-                            <FacilityButtonBasketball></FacilityButtonBasketball>
-                            <FacilityButtonTrack></FacilityButtonTrack>
-                        </View>
-                        <Text style={styles.header_2}>NELSON</Text>
-                        <View style={{flexDirection: 'row'}}>
-                            <FacilityButtonPool></FacilityButtonPool>
-                        </View>
-                    </View>
-                </View>
-            );
-        }
-    }
-
-    changeDisplayDataForm(){
-        console.log("YETER UYKU");
-        this.setState({
-            displayDataForm: !this.state.displayDataForm,
-            buttonText: 'Click to Stop Entering Data'
-        });
-        if (this.state.displayDataForm){
-            this.setState({
-                buttonText: 'Click to Enter Data'
-            });
-        }
-    }
-    // displayDataHeader(){
-    //     if (!this.state.displayDataForm){
-    //         return <TouchableOpacity style={{marginTop: 80}} onPress={()=> this.changeDisplayDataForm()}><Text style={{fontSize: 20}}>{this.state.buttonText}</Text></TouchableOpacity>;
+    // onNavigatorEvent(event) {
+    //     if (event.type === 'PreviewActionPress') {
+    //         if (event.id === 'action-cancel') {
+    //             Alert.alert('Cancelled');
+    //         }
+    //         if (event.id === 'action-delete-sure') {
+    //             Alert.alert('Deleted');
+    //         }
     //     }
     // }
-    
-    // pushFitnessScreen = () => {
-    //     this.props.navigator.push({
-    //         screen: 'PickApp.Screens.fitnessScreen',
-    //         title: 'Fitness',
-    //     });
-    // };
-    // pushPoolScreen = () => {
-    //     this.props.navigator.push({
-    //         screen: 'PickApp.Screens.poolScreen',
-    //         title: 'Pool',
-    //     });
-    // };
-    // pushBasketballScreen = () => {
-    //     this.props.navigator.push({
-    //         screen: 'PickApp.Screens.basketballScreen',
-    //         title: 'Basketball',
-    //     });
-    // };
-    // pushTrackScreen = () => {
-    //     this.props.navigator.push({
-    //         screen: 'PickApp.Screens.trackScreen',
-    //         title: 'Track',
-    //     });
-    // };
-    // pushVolleyballScreen = () => {
-    //     this.props.navigator.push({
-    //         screen: 'PickApp.Screens.volleyballScreen',
-    //         title: 'Volleyball',
-    //     });
-    // };
-    // pushBadmintonScreen = () => {
-    //     this.props.navigator.push({
-    //         screen: 'PickApp.Screens.badmintonScreen',
-    //         title: 'Fitness',
-    //     });
-    // };
-    //DO NOT DELETE:
 
+    // renderDataInputForm(){
+    //     if (this.state.displayDataForm){
+    //         return(
+    //             <View style={styles.container}>
+    //                 <View style={styles.form_container}>
+    //                     <Text style={styles.header_1}>Click On a Facility To Add People</Text>
+    //                     <Text style={styles.header_2}>OMAC</Text>
+    //                     <View style={{flexDirection: 'row'}}>
+    //                         <FacilityButtonBasketball></FacilityButtonBasketball>
+    //                         <FacilityButtonTrack></FacilityButtonTrack>
+    //                     </View>
+    //                     <Text style={styles.header_2}>NELSON</Text>
+    //                     <View style={{flexDirection: 'row'}}>
+    //                         <FacilityButtonPool></FacilityButtonPool>
+    //                     </View>
+    //                 </View>
+    //             </View>
+    //         );
+    //     }
+    // }
+
+    // changeDisplayDataForm(){
+    //     console.log("YETER UYKU");
+    //     this.setState({
+    //         displayDataForm: !this.state.displayDataForm,
+    //         buttonText: 'Click to Stop Entering Data'
+    //     });
+    //     if (this.state.displayDataForm){
+    //         this.setState({
+    //             buttonText: 'Click to Enter Data'
+    //         });
+    //     }
+    // }
+
+    pushScreen(screen, props){
+        if (screen === "FacilityCalendarPage"){
+            this.props.navigator.push({
+                screen: 'PickApp.Screens.' + screen,
+                title: screen,
+                passProps: props,
+            });
+        } else {
+            this.props.navigator.push({
+                screen: 'PickApp.Screens.' + screen + "Screen",
+                title: screen,
+            });
+        }
+        
+    }
+
+    // OLD RENDER:
+    // <ScrollView contentContainerStyle={styles.contentContainer}>
+    //             <TouchableOpacity style={{marginTop: 60}} onPress={()=> this.changeDisplayDataForm()}><Text style={{fontSize: 20}}>{this.state.buttonText}</Text></TouchableOpacity>
+    //             {this.renderDataInputForm()}
+    //             <GymContainer gymName={'Nelson'} subGymNames={nelsonSubGymNames} subGymClicked={null} displayMainPageHeader={true} hideAll={false} availability={null} changeScreen={() => this.pushScreen()}></GymContainer>
+    //             <GymContainer gymName={'OMAC'} subGymNames={omacSubGymNames} subGymClicked={null} displayMainPageHeader={true} hideAll={false} availability={null}></GymContainer>
+    //         </ScrollView>
 
     render(){
         var nelsonSubGymNames = ['Fitness', 'Pool'];
         var omacSubGymNames = ['Basketball', 'Track'];
-        // var myThis = this;
         return (
             <ScrollView contentContainerStyle={styles.contentContainer}>
-                <TouchableOpacity style={{marginTop: 60}} onPress={()=> this.changeDisplayDataForm()}><Text style={{fontSize: 20}}>{this.state.buttonText}</Text></TouchableOpacity>
-                {this.renderDataInputForm()}
-                <GymContainer gymName={'Nelson'} subGymNames={nelsonSubGymNames} subGymClicked={null} displayMainPageHeader={true} hideAll={false} availability={null}></GymContainer>
-                <GymContainer gymName={'OMAC'} subGymNames={omacSubGymNames} subGymClicked={null} displayMainPageHeader={true} hideAll={false} availability={null}></GymContainer>
+                <GymContainer gymName={'Nelson'} subGymNames={nelsonSubGymNames} subGymClicked={null} displayMainPageHeader={true} hideAll={false} availability={null} navigator={this.props.navigator} pushScreen={this.pushScreen.bind(this)}></GymContainer>
+                <GymContainer gymName={'OMAC'} subGymNames={omacSubGymNames} subGymClicked={null} displayMainPageHeader={true} hideAll={false} availability={null} navigator={this.props.navigator} pushScreen={this.pushScreen.bind(this)}></GymContainer>
             </ScrollView>
         );
     }

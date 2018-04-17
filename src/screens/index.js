@@ -15,6 +15,7 @@ import FacilityButtonBasketball from './FacilityButtonBasketball';
 import FacilityButtonPool from './FacilityButtonPool';
 import FacilityButtonTrack from './FacilityButtonTrack';
 
+import FacilityCalendarPage from './FacilityCalendarPage';
 // import Drawer from './types/Drawer';
 // import ListScreen from './types/ListScreen';
 import HomeScreen from './HomeScreen';
@@ -49,6 +50,7 @@ export function registerScreens() {
     Navigation.registerComponent('PickApp.Screens.VolleyballScreen', () => VolleyballScreen);
     Navigation.registerComponent('PickApp.Screens.BadmintonScreen', () => BadmintonScreen);
 
+    Navigation.registerComponent('PickApp.Screens.FacilityCalendarPage', () => FacilityCalendarPage);
 
     Navigation.registerComponent('PickApp.Screens.FacilityButtonBasketball', () => FacilityButtonBasketball);
     Navigation.registerComponent('PickApp.Screens.FacilityButtonPool', () => FacilityButtonPool);
