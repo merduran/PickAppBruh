@@ -199,12 +199,12 @@ export default class GymContainer extends Component{
         // console.log("MURAT = ", this.state.subGymClicked);
 		return(
 
-			<TouchableOpacity style={styles.gymContainer}>
+			<View style={styles.gymContainer}>
 	           {this.displayHeader()}
 	             <View style={styles.buttonCC}>
 	 	            {this.createSubGyms()}
 	             </View>
-	        </TouchableOpacity>
+	        </View>
 
 		);
 	}
