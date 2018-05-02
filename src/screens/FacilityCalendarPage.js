@@ -10,13 +10,13 @@ import FacilityCalendar from './FacilityCalendar.js';
 export default class AgendaScreen extends Component {
   constructor(props) {
     super(props);
-    console.log("PROPS = ", props)
+    // console.log("PROPS = ", props)
   }
 
   render() {
     var urlExt;
-    console.log("this.props.gymName = ", this.props.gymName);
-        console.log("this.props.subgymName = ", this.props.subGymName);
+    // console.log("this.props.gymName = ", this.props.gymName);
+    //     console.log("this.props.subgymName = ", this.props.subGymName);
 
     if (this.props.gymName === "Nelson"){
       if (this.props.subGymName === "Fitness"){ 

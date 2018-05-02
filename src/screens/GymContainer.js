@@ -6,11 +6,12 @@ import {
     StyleSheet,
     Button,
     TouchableOpacity,
+    Image
+    // Dimensions,
 } from 'react-native';
 
 import GymButtonContainer from './GymButtonContainer.js';
 import { NavigationToolBarIOS } from 'react-native-navigation';
-
 
 export default class GymContainer extends Component{
 	constructor(props){
@@ -23,21 +24,97 @@ export default class GymContainer extends Component{
             displayMainPageHeader: this.props.displayMainPageHeader,
             hideAll: this.props.hideAll,
             availability: this.props.availability,
+            openHours: '',
+            hourString: '',
+            alert: false,
 		};
         this.header = this.state.gymName;
+        this.fetchHours();
+        // this.checkIfOpen();
+        // this.checkIfOpen();
         // console.log("screenWidth = ", _window.);
         // this.subHeader = 'Choose a Sport';
+        // console.log("CONStRUC")
 	}
 
-    // hideAllDivs(){
-    //     console.log("HIDE AND SEEK? ", this.state.hideAll);
-    //     this.setState({
-    //         hideAll: !this.state.hideAll,
-    //     });
-    //     console.log("AN? ", this.state.hideAll);
-    // }
+    checkIfOpen(myThis){
+        var curr = new Date();
+        var start = new Date(new Date(myThis.state.openHours.startTime).getTime() + 4 * 60 * 60 * 1000);
+        var end = new Date(new Date(myThis.state.openHours.endTime).getTime() + 4 * 60 * 60 * 1000);
+        var minsFromEnd;
+        var minsFromStart;
+        curr = new Date(new Date("2018-05-01T03:30:00").getTime() + 4 * 60 * 60 * 1000);
+        if (curr >= start && curr <= end){
+            minsFromEnd = (end.getTime() - curr.getTime()) / (60 * 1000);
+             if (minsFromEnd <= 60){
+                myThis.setState({
+                    hourString: 'Closing in ' + minsFromEnd + ' minutes',
+                    alert: true,
+                });
+            } else {
+                myThis.setState({
+                    hourString: 'Open',
+                    alert: false,
+                });
+            }
 
-	createFunctionalityDivs(){
+        } else if (curr < start) {
+            minsFromStart = (start.getTime() - curr.getTime()) / (60 * 1000);
+            if (minsFromStart <= 60){
+                myThis.setState({
+                    hourString: 'Opening in ' + minsFromStart + ' minutes',
+                    alert: true,
+                });
+            } else {
+                myThis.setState({
+                    hourString: 'Closed',
+                    alert: false,
+                });
+            }
+        } else {
+            myThis.setState({
+                hourString: 'Closed',
+                alert: false,
+            });
+        } 
+        console.log("checking")
+    }
+
+    replaceAt(str, indexStart, indexEnd, replacement) {
+        return str.substr(0, indexStart) + replacement + str.substr(indexEnd + replacement.length);
+    }
+
+    fetchHours(){
+        var myThis = this;
+        fetch('https://pickapp-test.herokuapp.com/api/calendar/' + this.state.gymName.toLowerCase())
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(myJson) {
+            var today = myJson[0].split(" - "); 
+            myThis.setState({
+                openHours: { startTime: today[0].substring(0, 19), endTime: today[1].substring(0, 19)},
+            }, function(){
+                myThis.checkIfOpen(myThis);
+                setInterval(function(){
+                    myThis.checkIfOpen(myThis)
+                }, 30000);
+            });
+        });
+
+    }
+
+    time(date) {
+        var date = new Date(date);
+        var hours = date.getHours() + 4;
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 && hours < 24 ? 'pm' : 'am';
+        var strMin = (minutes < 10) ? (minutes === 0 ? "": "0" + minutes): minutes;
+        var strTime = (hours === 12 && minutes === 0) ? "noon": (hours === 24 && minutes === 0) ? "midnight": ((hours % 12) + (strMin == "" ? '': ':') + strMin + ampm); // the hour '0' should be '12'
+        return strTime;
+    }
+	
+    createFunctionalityDivs(){
 		var funcDivs = [];
         var names = ['Availability', 'Schedule'];
 		for (var i = 0; i < names.length; i++){
@@ -57,7 +134,6 @@ export default class GymContainer extends Component{
                 </GymButtonContainer>
 	    	);
 		}
-        // if (!this.state.displayMainPageHeader && !this.state.hideAll){
         return funcDivs;
 	}
 
@@ -82,22 +158,10 @@ export default class GymContainer extends Component{
                 </GymButtonContainer>
             );
         }
-        // if (this.state.displayMainPageHeader && !this.state.hideAll){
-        //     return subGyms;
-        // }
         return subGyms;
     }
 
-    // displayFunctionScreen(){
-    //     if (!this.state.displayMainPageHeader && this.state.hideAll){
-    //         return(
-    //             <Text style={{color: 'yellow'}}>{this.state.availability}</Text>
-    //         );
-    //     }
-    // }
-
     changeTitle(titleFromButton){
-        // console.log("ANNEN = ", titleFromButton);
         this.setState({
             subGymClicked: titleFromButton,
         });
@@ -109,6 +173,13 @@ export default class GymContainer extends Component{
             availability: availabilityData,
         });
     }
+
+    // componentWillMount(){
+    //     console.log("A");
+    //     this.fetchHours();
+    //     // this.checkIfOpen();
+    //     // console.log("component will mount = ", this.state.openHours)
+    // }
 
 	// <View style={styles.gymContainer}>
 	//             <View style={styles.headerContainer}>
@@ -164,6 +235,14 @@ export default class GymContainer extends Component{
     //     }
         
     // }
+    displayAlert(){
+        if (this.state.alert){
+            return(
+                <Image source={require('./Icons/clock.png')} style={{width: 20, height: 20, alignSelf: 'flex-start', marginRight: 5}}/>
+            );
+        }
+    }
+
 
     changeToSubGym(){
         this.setState({
@@ -172,23 +251,20 @@ export default class GymContainer extends Component{
     }
 
     displayHeader(){
-        // var header = this.state.gymName;;
-        // if (this.state.displayMainPageHeader){
-        //     if (!this.state.hideAll){
-        //         this.header = this.state.gymName;
-        //         this.subHeader = 'Choose a Sport';
-        //     }
-        // } else {
-        //     if (!this.state.hideAll){
-        //         this.header = this.state.subGymClicked;
-        //         this.subHeader = this.state.gymName;    
-        //     }
-        // }
+        // console.log("C = ", this.state.openHours);
+        // console.log("this.state.openHours.startTime = ", this.state.openHours)
+        var isOpen = "Currently Open"
+        var date = new Date();
+        // console.log("date = ", date.getHours() % 12);
         return(
-
             <View style={styles.headerContainer}>   
                 <View style={styles.headerTextContainer}>
                     <Text style={styles.headerText}>{this.header}</Text>
+                    <Text>{this.time(this.state.openHours.startTime)} - {this.time(this.state.openHours.endTime)}</Text>
+                </View>
+                <View style={{flexDirection: 'row', opacity: 0.6, marginRight:20}}>
+                    {this.displayAlert()}                    
+                    <Text style={{fontSize: 17}}>{this.state.hourString}</Text>
                 </View>
             </View>
 
@@ -196,17 +272,20 @@ export default class GymContainer extends Component{
     }
 
 	render(){
-        // console.log("MURAT = ", this.state.subGymClicked);
-		return(
-
-			<View style={styles.gymContainer}>
-	           {this.displayHeader()}
-	             <View style={styles.buttonCC}>
-	 	            {this.createSubGyms()}
-	             </View>
-	        </View>
-
-		);
+        // console.log('render biatch = ', Object.keys(this.state.openHours).length);
+        if (Object.keys(this.state.openHours).length > 0){
+            // console.log("ANNEN")
+            return(
+                <View style={styles.gymContainer}>
+                   {this.displayHeader()}
+                     <View style={styles.buttonCC}>
+                        {this.createSubGyms()}
+                     </View>
+                </View>
+            );
+        }
+        return null;
+		
 	}
 }
 const Dimensions = require('Dimensions');
@@ -223,7 +302,7 @@ const styles = StyleSheet.create({
     },
 
     gymContainer: {
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',//'white',
         marginTop: 20,
         marginBottom: 0,
         borderRadius: 1,
@@ -257,7 +336,7 @@ const styles = StyleSheet.create({
 
     headerContainer: {
         // backgroundColor: 'blue',
-        width: 260,
+        width: _window.width,
         height: 70,
         flexDirection: 'row',
         justifyContent: 'space-between',

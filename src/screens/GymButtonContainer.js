@@ -7,8 +7,9 @@ import {
     Button,
     TouchableOpacity
 } from 'react-native';
-import FacilityCalendar from './FacilityCalendar.js';
 
+import FacilityCalendar from './FacilityCalendar.js';
+import Alert from './Alert.js';
 
 export default class GymButtonContainer extends Component{
 	constructor(props){
@@ -18,7 +19,6 @@ export default class GymButtonContainer extends Component{
 			subGymClicked: this.props.subGymClicked,
 			subGymName: this.props.subGymName,
 			changeToSubGym: this.props.changeToSubGym,
-			changeTitle: this.props.changeTitle,
 			displayMainPageHeader: this.props.displayMainPageHeader,
 			hideAllDivs: this.props.hideAllDivs,
 			hideAll: this.props.hideAll,
@@ -27,9 +27,8 @@ export default class GymButtonContainer extends Component{
 			openHours: '',
 			availability2: '',
 			availabilityText: '',
-			upcomingEvents: '',
-			// availability: this.props.availability,
-			// changeAvailability: this.props.changeAvailability,
+			upcomingEvents: [],
+			happeningEvents: [],
 		};
 		var gymNumber;
 		switch (this.state.gymName){
@@ -40,7 +39,6 @@ export default class GymButtonContainer extends Component{
 				gymNumber = 2;
 				break;
 		}
-		// this.fetchCalendarData()
 		this.fetchAvailabilityData(this, 'users/' + gymNumber + '/' + this.state.subGymName.toLowerCase());
 		var urlExt;
 		if (this.state.subGymName !== "Fitness"){
@@ -51,7 +49,7 @@ export default class GymButtonContainer extends Component{
 		} 
 		var myThis = this;
 		setInterval(function(){ myThis.fetchAvailabilityData(myThis, 'users/' + gymNumber + '/' + myThis.state.subGymName.toLowerCase())}, 2000);
-		this.fetchHours();
+		
 	}
 
 	fetchAvailabilityData(myThis, urlExt){
@@ -92,171 +90,51 @@ export default class GymButtonContainer extends Component{
 		});
 	}
 
-	// fetchCalendarData(){
-	// 	fetch('https://pickapp-test.herokuapp.com/api/calendar')
-	// 	.then(function(response) {
-	// 		return response.json();
-	// 	})
-	// 	.then(function(myJson) {
-	// 		console.log("CALENDAR = ", myJson)
-	// 		// var avail;
-	// 		// switch(myJson.availability){
-	// 		// 	case undefined: 
-	// 		// 		avail = myJson.count;
-	// 		// 		break;
-	// 		// 	default: 
-	// 		// 		avail = myJson.availability
-	// 		// }	
-	// 		// myThis.setState({
-	// 		// 	availability: avail,
-	// 		// });
-	// 	});
-	// }
-
-
-	pressHandler(){
-	// 	console.log("BABASIZ = ", this.state.hideAll)
-	// 	if (!this.state.hideAll){
-	// 		var myThis = this;
-	// 		var users;
-	// 		switch(this.state.gymName){
-	// 			case 'Nelson':
-	// 				users = 1;
-	// 				break;
-	// 			case 'OMAC':
-	// 				users = 2;
-	// 				break;
-	// 		}
-	// 		if (this.state.subGymClicked !== null){
-	// 			fetch('https://pickapp-test.herokuapp.com/api/users/' + users + '/' + this.state.subGymClicked.toLowerCase())
-	// 				.then(function(response) {
-	// 				    return response.json();
-	// 				})
-	// 				.then(function(myJson) {
-	// 					var avail;
-	// 					if (myJson.availability !== undefined) avail = myJson.availability;
-	// 					else if (myJson.count !== undefined) avail = myJson.count;
-	// 					this.setState({
-
-	// 					})
-	// 					// myThis.state.changeAvailability(avail);
-	// 				});
-	// 		}
-	// 		this.state.changeToSubGym();
-	// 	}
-	// 	this.state.hideAllDivs = this.state.hideAllDivs.bind(this);
-	// 	this.state.hideAllDivs();
-	// 	if (this.state.hideAll || this.state.displayMainPageHeader){
-	// 		this.state.changeTitle(this.state.subGymName);
-	// 	}
-	}
-
-	// displayAvailability(){
-	// 	if (this.state.availability){
-	// 		return this.state.availability;
-	// 	}
-	// }
-
-	fetchHours(){
-		var myThis = this;
-		fetch('https://pickapp-test.herokuapp.com/api/calendar/' + this.state.gymName.toLowerCase())
-	    .then(function(response) {
-        	return response.json();
-    	})
-    	.then(function(myJson) {
-    		var today = myJson[0].split(" - ");
-    		var startHour = myJson[0].split(" - ")[0].split("T")[1].split("-")[0].substring(0, 5);
-    		var endHour = myJson[0].split(" - ")[1].split("T")[1].split("-")[0].substring(0, 5);
-    		// console.log("today = ", today);
-    		// console.log("startHour = ", startHour)
-    		// console.log("endHour = ", endHour)
-    		myThis.setState({
-    			openHours: startHour + " - " + endHour,
-    		});
-    	});
-	}
-
 	fetchCalendarData(myThis, urlExt){
-	    console.log("Still fetching...");
 	    fetch('https://pickapp-test.herokuapp.com/api/calendar/' + urlExt)
 	    .then(function(response) {
 	        return response.json();
 	    })
 	    .then(function(myJson) {
-	        console.log("myJson = ", myJson);
-	        var date, startTime, endTime, eventTitle, court;
-	        console.log("new Date().toISOString() = ", new Date().toISOString());
-	        var today = new Date().toISOString();
-	        var todayDate = today.split('T')[0];
-	        var todayMinutes = parseInt(today.split('T')[1].substring(0, 2)) * 60 + parseInt(today.split('T')[1].substring(3, 5));
-	        console.log("today = ", today)
-	        var upcomingEvents = [];
-	        for (var i = 0; i < myJson.length; i++){
-	        	if (myJson[i].split("T")[0] === todayDate){
-	        		var eventMinutes = parseInt(myJson[i].split('T')[1].substring(0, 2)) * 60 + parseInt(myJson[i].split('T')[1].substring(3, 5));
-	        		var diff = eventMinutes - (todayMinutes - 240);
-	        		var eventTitle = myJson[i].split(" - ")[2] + "in";
-	        		if (diff < 120){
-	        			console.log
-	        			upcomingEvents.push(<Text style={{fontSize: 10, alignSelf: 'flex-start'}}>{eventTitle} in {diff} min</Text>); 
-	        		}
+	        var closestUpcoming;
+	        upcomingEventsCount = 0;
+	        happeningEventsCount = 0;
+	        var todayStartHour = new Date(new Date(new Date().toISOString().split("T")[0] + "T00:00:00").getTime() + 4 * 60 * 60 * 1000);
+	        var todayEndHour = new Date(new Date(todayStartHour).getTime() + 24 * 60 * 60 * 1000);
+	        var i;
+	        var curr = new Date();
+	        for (i = 0; i < myJson.length; i++){
+	        	var firstUpcomingStart = new Date(new Date(myJson[i].split(" - ")[0].substring(0, 19)).getTime() + 4 * 60 * 60 * 1000);
+	        	if (firstUpcomingStart >= curr && firstUpcomingStart <= todayEndHour){
+	        		closestUpcoming = firstUpcomingStart;
+	        		upcomingEventsCount++;
+	        		break;
+	        	} else if (firstUpcomingStart >= todayStartHour && firstUpcomingStart <= todayEndHour){
+	        		happeningEventsCount++
 	        	}
 	        }
-	        myThis.setState({
-	        	upcomingEvents: upcomingEvents,
-	        });
-	        console.log("UPcoming = ", myThis.state.upcomingEvents);
-	        // myThis.events = myJson.map((event) => {
-	        //     event = event.split(" - ");
-	        //     event[0] = (event[0].replace("T", "X")).split("X");
-	        //     date = event[0][0];
-	        //     startTime = event[0][1].split("-")[0];
-	        //     endTime = ((event[1].replace("T", "X")).split("X"))[1].split('-')[0];
-	        //     eventTitle = event[2];
-	        //     // console.log("event = ", event);
-	        //     if (event.length === 4){ court = event[3]; } 
-	        //     else { 
-	        //       eventTitle = event[2].split("-")[0]; 
-	        //       if (event[2].split("-")[1] !== undefined ) { court = event[2].split("-")[1]; }
-	        //       // console.log("COURT = ", court); console.log("eventTitle = ", eventTitle);
-	        //       // if (event.length === 3){ eventTitle = }
-	        //     }
-	        //     // console.log("YARRAK");
-	            
-	        //     // console.log("eventTitle = ", eventTitle);
-
-	        //     if (court !== undefined){
-	        //       var courts = [];
-	        //       if (court.includes('1')){ courts.push(1); } 
-	        //       if (court.includes('2')){ courts.push(2); } 
-	        //       if (court.includes('3')){ courts.push(3); } 
-	        //       if (court.includes('4')){ courts.push(4); }
-	        //       if (courts.length == 0){
-	        //         if (court.includes('ower')){
-	        //           courts.push(1);
-	        //           courts.push(2);
-	        //           courts.push(3);
-	        //           courts.push(4);
-	        //         } else if (court.includes('olleyball')){
-	        //           courts.push(4)
-	        //         }
-	        //       }
-	        //     }
-	            
-	        //     // console.log("AMJIK");
-	        //     return(
-	        //         {
-	        //            date: date,
-	        //            startTime: startTime,
-	        //            endTime: endTime,
-	        //            eventTitle: eventTitle,
-	        //            courts: courts
-	        //         }
-	        //     );
-	        // });
-	        // myThis.setState({
-	        //     render: true,
-	        // });
+	        if (upcomingEventsCount){
+	        	var minutesAway;
+	        	for (var j = i; j < myJson.length; j++){
+		        	var events = myJson[j].split(" - ")
+		        	var eventStrStart = events[0].substring(0, 19);
+		        	var eventDateStart = new Date(new Date(eventStrStart).getTime() + 4 * 60 * 60 * 1000);
+		        	var eventStrEnd = events[1].substring(0, 19);
+		        	var eventDateEnd = new Date(new Date(eventStrEnd).getTime() + 4 * 60 * 60 * 1000);
+		        	var diffFromStart = eventDateStart - curr;
+		        	if (diffFromStart >= 0 && eventDateStart.getTime() === closestUpcoming.getTime()){
+		        		closestUpcoming = eventDateStart;
+		        		upcomingEventsCount++;
+		        		minutesAway = diffFromStart;
+		        	} else if (curr >= eventDateStart && curr <= eventDateEnd){
+		        		happeningEventsCount++;
+		        	}
+		        }
+		        myThis.setState({
+		        	upcomingEvents: [Math.ceil(minutesAway/(60*1000)), upcomingEventsCount],
+		        	happeningEvents: happeningEventsCount,
+		        });
+	        }
 	    });
 	  }
 
@@ -267,9 +145,6 @@ export default class GymButtonContainer extends Component{
 					<Text style={styles.marginText}>
 				    	{this.state.subGymName}
 					</Text>
-						<Text style={{bottom: 0, color: '#9B9FA3', fontSize: 15, marginRight: 5}}>
-							{this.state.openHours}
-						</Text>
 				</View>
 				<View style={styles.subGymTabContainer}>
 					<View style={styles.subGymTab}>
@@ -285,11 +160,8 @@ export default class GymButtonContainer extends Component{
 					<View style={styles.subGymTab}>
 						<Text style={styles.availabilityHeader}>Coming Up</Text>
 						<View style={styles.upcomingEventsContainer}>
-							<ScrollView>
-								<Text>
-									{this.state.upcomingEvents}
-								</Text>
-							</ScrollView>
+							<Alert count={this.state.upcomingEvents[1]} minutesAway={this.state.upcomingEvents[0]}></Alert>
+							<Alert count={this.state.happeningEvents[1]} minutesAway={null}></Alert>
 						</View>
 						<TouchableOpacity style={styles.subGymHeader} onPress={() => this.props.pushScreen("FacilityCalendarPage", {gymName: this.state.gymName, subGymName: this.state.subGymName})}><Text style={{fontSize: 7, color: '#657786', textAlign: 'center'}}>See more</Text></TouchableOpacity>
 					</View>
@@ -301,6 +173,7 @@ export default class GymButtonContainer extends Component{
 
 const styles = StyleSheet.create({
 	upcomingEventsContainer: {
+		alignSelf: 'flex-start',
 		marginTop: 10,
 		height: 60,
 		paddingRight: 2,
@@ -322,14 +195,14 @@ const styles = StyleSheet.create({
     },
 
     subGym: {
-    	// backgroundColor: 'red',
+    	backgroundColor: '#ECECF7',
     	borderColor: '#C7CBD1',
     	borderWidth: 1,
     	padding: 5,
     	margin: 5,
     	paddingRight: 10,
     	paddingLeft: 10,
-    	borderRadius: 3,
+    	borderRadius: 20,
     	shadowColor: '#000',
         shadowOffset: { width: 1, height: 1 },
         // shadowOpacity: 0.4,
@@ -398,7 +271,7 @@ const styles = StyleSheet.create({
     },
     marginText: {
     	fontSize: 19,
-        color: '#14171A',
+        color: '#D9D11D',//'#14171A',
         textAlign: 'left',
     },
 

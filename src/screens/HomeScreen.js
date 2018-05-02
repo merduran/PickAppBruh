@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
 
     },
     contentContainer: {
-        backgroundColor: '#F8F8F4',
+        backgroundColor: '#EFEFFA',//'#F8F8F4',
         // flex: 2,
         justifyContent: 'space-between',
         alignItems:'center',
