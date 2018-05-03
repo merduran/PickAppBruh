@@ -5,7 +5,8 @@ import {
     Text,
     StyleSheet,
     Button,
-    TouchableOpacity
+    TouchableOpacity,
+    Image
 } from 'react-native';
 
 import FacilityCalendar from './FacilityCalendar.js';
@@ -16,19 +17,21 @@ export default class GymButtonContainer extends Component{
 		super(props);
 		this.state = {
 			gymName: this.props.gymName,
-			subGymClicked: this.props.subGymClicked,
-			subGymName: this.props.subGymName,
-			changeToSubGym: this.props.changeToSubGym,
-			displayMainPageHeader: this.props.displayMainPageHeader,
-			hideAllDivs: this.props.hideAllDivs,
-			hideAll: this.props.hideAll,
-			availability: '',
-			users: '',
-			openHours: '',
-			availability2: '',
-			availabilityText: '',
-			upcomingEvents: [],
-			happeningEvents: 0,
+            subGymClicked: this.props.subGymClicked,
+            subGymName: this.props.subGymName,
+            changeToSubGym: this.props.changeToSubGym,
+            displayMainPageHeader: this.props.displayMainPageHeader,
+            hideAllDivs: this.props.hideAllDivs,
+            hideAll: this.props.hideAll,
+            availability: '',
+            users: '',
+            openHours: '',
+            availability2: '',
+            availabilityText: '',
+            upcomingEvents: [],
+            happeningEvents: [],
+            gymColor: '',
+            iconPath:'',
 		};
 		var gymNumber;
 		switch (this.state.gymName){
@@ -52,44 +55,93 @@ export default class GymButtonContainer extends Component{
 		setInterval(function(){ myThis.fetchAvailabilityData(myThis, 'users/' + gymNumber + '/' + myThis.state.subGymName.toLowerCase())}, 2000);
 		
 	}
-
 	fetchAvailabilityData(myThis, urlExt){
-		fetch('https://pickapp-test.herokuapp.com/api/' + urlExt)
-		.then(function(response) {
-			return response.json();
-		})
-		.then(function(myJson) {
-			var avail;
-			switch(myJson.availability){
-				case undefined: 
-					avail = myJson.count;
-					break;
-				default: 
-					avail = myJson.availability
-			}	
-			var value;
-			var txt;
-			if (myThis.state.subGymName == 'Fitness') {
-			    value = Math.round(Number(avail*(100/181))) + "%";
-			    txt = 'of Max\nCapacity';
-			} else if (myThis.state.subGymName == 'Pool'){
-				value = Math.round(Number(avail/8));
-				txt = 'People per\nLane';
-			} else if(myThis.state.subGymName == 'Basketball') {
-				value = Math.round(Number(avail/4));
-				txt = 'People per\nCourt';
-			} else if (myThis.state.subGymName == 'Track'){
-				value = Math.round(Number(avail/6));
-				txt = 'People per\nLane';
-			}
-			if (avail !== 0 && value === 0){ value++; }
-			myThis.setState({
-			    availability: avail,
-			    availability2: value,
-			    availabilityText: txt
-			});
-		});
-	}
+        fetch('https://pickapp-test.herokuapp.com/api/' + urlExt)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(myJson) {
+                var avail;
+                switch(myJson.availability){
+                    case undefined:
+                        avail = myJson.count;
+                        break;
+                    default:
+                        avail = myJson.availability
+                }
+                var value;
+                var txt;
+                var clr;
+                var icon;
+                if (myThis.state.subGymName == 'Fitness') {
+                    value = Math.round(Number(avail*(100/181))) + "%";
+                    txt = 'of Max Capacity';
+                    clr = '#bfae00';//'#BFAE00';
+                    icon = require('./Icons/gym.png');
+                } else if (myThis.state.subGymName == 'Pool'){
+                    value = Math.round(Number(avail/8));
+                    txt = 'People per Lane';
+                    clr = '#66b3c3';//'#66B3C3'
+                    icon = require('./Icons/pool.png');
+                } else if(myThis.state.subGymName == 'Basketball') {
+                    value = Math.round(Number(avail/4));
+                    txt = 'People per Court';
+                    clr = '#de8100';//'#DE8100';
+                    icon = require('./Icons/basketball_court.png');
+                } else if (myThis.state.subGymName == 'Track'){
+                    value = Math.round(Number(avail/6));
+                    txt = 'People per Lane';
+                    clr = '#b82a22';//'#B82A22';
+                    icon = require('./Icons/tracks.png');
+                }
+                if (avail !== 0 && value === 0){ value++; }
+                myThis.setState({
+                    availability: avail,
+                    availability2: value,
+                    availabilityText: txt,
+                    gymColor: clr,
+                    iconPath: icon,
+                });
+            });
+    }
+
+	// fetchAvailabilityData(myThis, urlExt){
+	// 	fetch('https://pickapp-test.herokuapp.com/api/' + urlExt)
+	// 	.then(function(response) {
+	// 		return response.json();
+	// 	})
+	// 	.then(function(myJson) {
+	// 		var avail;
+	// 		switch(myJson.availability){
+	// 			case undefined: 
+	// 				avail = myJson.count;
+	// 				break;
+	// 			default: 
+	// 				avail = myJson.availability
+	// 		}	
+	// 		var value;
+	// 		var txt;
+	// 		if (myThis.state.subGymName == 'Fitness') {
+	// 		    value = Math.round(Number(avail*(100/181))) + "%";
+	// 		    txt = 'of Max\nCapacity';
+	// 		} else if (myThis.state.subGymName == 'Pool'){
+	// 			value = Math.round(Number(avail/8));
+	// 			txt = 'People per\nLane';
+	// 		} else if(myThis.state.subGymName == 'Basketball') {
+	// 			value = Math.round(Number(avail/4));
+	// 			txt = 'People per\nCourt';
+	// 		} else if (myThis.state.subGymName == 'Track'){
+	// 			value = Math.round(Number(avail/6));
+	// 			txt = 'People per\nLane';
+	// 		}
+	// 		if (avail !== 0 && value === 0){ value++; }
+	// 		myThis.setState({
+	// 		    availability: avail,
+	// 		    availability2: value,
+	// 		    availabilityText: txt
+	// 		});
+	// 	});
+	// }
 
 	fetchCalendarData(myThis, urlExt){
 	    fetch('https://pickapp-test.herokuapp.com/api/calendar/' + urlExt)
@@ -183,108 +235,146 @@ export default class GymButtonContainer extends Component{
 	        }
 	    });
 	  }
-
 	render(){
-		return(
-			<View style={styles.subGym}>
-				<View style={styles.subGymSubHeader}>
-					<Text style={styles.marginText}>
-				    	{this.state.subGymName}
-					</Text>
-				</View>
-				<View style={styles.subGymTabContainer}>
-					<View style={styles.subGymTab}>
-						<Text style={styles.availabilityHeader}>Occupation</Text>
-						<Text style={styles.availabilityValue}>{this.state.availability}</Text>
-						<Text style={{fontSize: 15}}>people</Text>
-					</View>
-					<View style={styles.subGymTab}>
-					    <Text style={styles.availabilityHeader}>Availability</Text>
-					    <Text style={styles.availabilityValue}>{this.state.availability2}</Text>
-					    <Text style={{fontSize: 10, textAlign: 'center', marginTop: 2}}>{this.state.availabilityText}</Text>
-					</View>
-					<View style={styles.subGymTab}>
-						<Text style={styles.availabilityHeader}>Coming Up</Text>
-						<View style={styles.upcomingEventsContainer}>
-							<Alert upcomingEvents={this.state.upcomingEvents} happeningEvents={this.state.happeningEvents}></Alert>
-						</View>
-						<TouchableOpacity style={styles.subGymHeader} onPress={() => this.props.pushScreen("FacilityCalendarPage", {gymName: this.state.gymName, subGymName: this.state.subGymName})}><Text style={{fontSize: 7, color: '#657786', textAlign: 'center'}}>See more</Text></TouchableOpacity>
-					</View>
-				</View>
-			</View>
-		);
-	}
+        return(
+            <View style={[styles.subGym, {borderColor: this.state.gymColor}]}>
+                <View style={styles.subGymSubHeader1}>
+                    <View style={styles.subGymSubHeader}>
+                        <Image style={styles.image} source={this.state.iconPath}/>
+                        <Text style={[styles.marginText, {color:this.state.gymColor}]}>
+                            {this.state.subGymName}
+                        </Text>
+                    </View>
+                </View>
+                <View style={styles.subGymTabContainer}>
+                    <View style={styles.subGymTab}>
+                        {/*<Text style={styles.availabilityHeader}>Occupation</Text>*/}
+                        <Text style={styles.availabilityValue}>{this.state.availability}</Text>
+                        <Text style={{fontSize: 15}}>people total</Text>
+                    </View>
+                    <View style={styles.subGymTab}>
+                        {/*<Text style={styles.availabilityHeader}>Availability</Text>*/}
+                        <Text style={styles.availabilityValue}>{this.state.availability2}</Text>
+                        <Text style={{fontSize: 15, textAlign: 'center', marginTop: 2}}>{this.state.availabilityText}</Text>
+                    </View>
+                </View>
+                <View style={styles.subGymTab1}>
+                    {/*<Text style={styles.availabilityHeader}>Coming Up</Text>*/}
+                    <View style={styles.upcomingEventsContainer}>
+ 						<Alert upcomingEvents={this.state.upcomingEvents} happeningEvents={this.state.happeningEvents}></Alert>
+                    </View>
+                    <TouchableOpacity style={styles.subGymHeader} onPress={() => this.props.pushScreen("FacilityCalendarPage", {gymName: this.state.gymName, subGymName: this.state.subGymName})}><Text style={{fontSize: 7, color: '#657786', textAlign: 'center'}}>See more</Text></TouchableOpacity>
+                </View>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-	upcomingEventsContainer: {
-		alignSelf: 'flex-start',
-		marginTop: 10,
-		height: 60,
-		paddingRight: 2,
-		paddingLeft: 2, 
-	},
+    upcomingEventsContainer: {
+        alignSelf: 'flex-start',
+        marginTop: 10,
+        height: 60,
+        paddingRight: 2,
+        paddingLeft: 2,
+    },
     gymContainer: {
-    	borderRadius: 10,
+        borderRadius: 10,
         padding: 10,
-    }, 
+    },
     subGymTabContainer: {
-    	flexDirection: 'row',
-    	justifyContent: 'space-around',
-    	// alignItems: 'center',
-    	// backgroundColor: 'red',
-    	marginTop: 10,
-    	// marginLeft: 10,
-    	padding: 2,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        // alignItems: 'center',
+        // backgroundColor: 'red',
+        // height: 100,
+        width: 250,
+        marginTop: 10,
+        // marginLeft: 10,
+        padding: 2,
 
     },
-
+    image: {
+        // flex: 0.3,
+        width: 25,
+        height: 25,
+        resizeMode: 'contain',
+        alignItems: 'center',
+        justifyContent:'center',
+        opacity: 0.8,
+    },
     subGym: {
-    	backgroundColor: '#ECECF7',
-    	borderColor: '#C7CBD1',
-    	borderWidth: 1,
-    	padding: 5,
-    	margin: 5,
-    	paddingRight: 10,
-    	paddingLeft: 10,
-    	borderRadius: 20,
-    	shadowColor: '#000',
-        shadowOffset: { width: 1, height: 1 },
+        backgroundColor: '#f6f6f6',//'#ECECF7',
+        opacity: 0.8,
+        // borderColor: '#C7CBD1',
+        borderWidth: 2,
+        height: 250,
+        width: 320,
+        padding: 5,
+        margin: 5,
+        paddingRight: 10,
+        paddingLeft: 10,
+        borderRadius: 20,
+        // shadowColor: '#808080',
+        // shadowOffset: { width: 1, height: 1 },
         // shadowOpacity: 0.4,
-        shadowRadius: 2,
+        // shadowRadius: 2,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
     },
 
     subGymTab: {
-		// backgroundColor: 'blue',
-		height: 120,
-		alignItems: 'center',
-    	width: 100,
+        // backgroundColor: 'blue',
+        // height: 120,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: 120,
+    },
+    subGymTab1: {
+        // backgroundColor: 'blue',
+        // height: 120,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
     },
 
     availabilityHeader: {
-		textAlign: 'left',
-		fontSize: 11,
-		fontWeight: 'bold',
-	},
-
-	availabilityValue: {
-		marginTop: 5,
-		textAlign: 'center',
-		fontSize: 25,
-	},
-
-    subGymSubHeader: {
-		// backgroundColor: 'yellow',
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		borderColor: '#E6ECF0',
-		paddingBottom: 2,
-		borderBottomWidth: 1,
-		marginTop: 7
-
+        textAlign: 'left',
+        fontSize: 25,
+        fontWeight: 'bold',
     },
 
+    availabilityValue: {
+        marginTop: 5,
+        textAlign: 'center',
+        fontSize: 40,
+    },
+
+    subGymSubHeader: {
+        // backgroundColor: 'yellow',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        borderColor: '#E6ECF0',
+        width: 150,
+        // paddingBottom: 2,
+        // borderBottomWidth: 1,
+        // marginTop: 7
+
+    },
+    subGymSubHeader1: {
+        // backgroundColor: 'orange',
+        flexDirection: 'row',
+        // justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#E6ECF0',
+        paddingBottom: 2,
+        borderBottomWidth: 1,
+        marginTop: 7,
+        width: 300,
+    },
     buttonCC: {
         // backgroundColor: 'black',
         padding: 20,
@@ -294,8 +384,9 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer: {
-    	height: 200,
-    	backgroundColor: 'yellow',
+        height: 200,
+        width: 175,
+        backgroundColor: 'yellow',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
@@ -315,8 +406,8 @@ const styles = StyleSheet.create({
 
     },
     marginText: {
-    	fontSize: 19,
-        color: '#D9D11D',//'#14171A',
+        fontSize: 25,
+        // color: '#DE8100',//'#14171A',
         textAlign: 'left',
     },
 
@@ -335,23 +426,195 @@ const styles = StyleSheet.create({
 
 
     subGymHeader: {
-    	margin: 7,
-    	width: 50,
-    	// backgroundColor: 'purple',
-    	// shadowColor: '#000',
-     //    shadowOffset: { width: 0.4, height: 0 },
-     //    shadowOpacity: 0.8,
-     //    shadowRadius: 2,
-     	borderWidth: 0.8,
-     	borderColor: '#657786',
-    	borderRadius: 50,
-    	position: 'absolute',
-    	bottom: 4,
-    	padding: 4,
+        margin: 7,
+        width: 50,
+        // backgroundColor: 'purple',
+        // shadowColor: '#000',
+        //    shadowOffset: { width: 0.4, height: 0 },
+        //    shadowOpacity: 0.8,
+        //    shadowRadius: 2,
+        borderWidth: 0.8,
+        borderColor: '#657786',
+        borderRadius: 50,
+        position: 'absolute',
+        bottom: 4,
+        padding: 4,
     },
     subGymBody: {
-    	// flex: 1,
-    	backgroundColor: 'blue',
-    	margin: 5,
+        // flex: 1,
+        backgroundColor: 'blue',
+        margin: 5,
     },
 });
+
+// 	render(){
+// 		return(
+// 			<View style={styles.subGym}>
+// 				<View style={styles.subGymSubHeader}>
+// 					<Text style={styles.marginText}>
+// 				    	{this.state.subGymName}
+// 					</Text>
+// 				</View>
+// 				<View style={styles.subGymTabContainer}>
+// 					<View style={styles.subGymTab}>
+// 						<Text style={styles.availabilityHeader}>Occupation</Text>
+// 						<Text style={styles.availabilityValue}>{this.state.availability}</Text>
+// 						<Text style={{fontSize: 15}}>people</Text>
+// 					</View>
+// 					<View style={styles.subGymTab}>
+// 					    <Text style={styles.availabilityHeader}>Availability</Text>
+// 					    <Text style={styles.availabilityValue}>{this.state.availability2}</Text>
+// 					    <Text style={{fontSize: 10, textAlign: 'center', marginTop: 2}}>{this.state.availabilityText}</Text>
+// 					</View>
+// 					<View style={styles.subGymTab}>
+// 						<Text style={styles.availabilityHeader}>Coming Up</Text>
+// 						<View style={styles.upcomingEventsContainer}>
+// 							<Alert upcomingEvents={this.state.upcomingEvents} happeningEvents={this.state.happeningEvents}></Alert>
+// 						</View>
+// 						<TouchableOpacity style={styles.subGymHeader} onPress={() => this.props.pushScreen("FacilityCalendarPage", {gymName: this.state.gymName, subGymName: this.state.subGymName})}><Text style={{fontSize: 7, color: '#657786', textAlign: 'center'}}>See more</Text></TouchableOpacity>
+// 					</View>
+// 				</View>
+// 			</View>
+// 		);
+// 	}
+// }
+
+// const styles = StyleSheet.create({
+// 	upcomingEventsContainer: {
+// 		alignSelf: 'flex-start',
+// 		marginTop: 10,
+// 		height: 60,
+// 		paddingRight: 2,
+// 		paddingLeft: 2, 
+// 	},
+//     gymContainer: {
+//     	borderRadius: 10,
+//         padding: 10,
+//     }, 
+//     subGymTabContainer: {
+//     	flexDirection: 'row',
+//     	justifyContent: 'space-around',
+//     	// alignItems: 'center',
+//     	// backgroundColor: 'red',
+//     	marginTop: 10,
+//     	// marginLeft: 10,
+//     	padding: 2,
+
+//     },
+
+//     subGym: {
+//     	backgroundColor: '#ECECF7',
+//     	borderColor: '#C7CBD1',
+//     	borderWidth: 1,
+//     	padding: 5,
+//     	margin: 5,
+//     	paddingRight: 10,
+//     	paddingLeft: 10,
+//     	borderRadius: 20,
+//     	shadowColor: '#000',
+//         shadowOffset: { width: 1, height: 1 },
+//         // shadowOpacity: 0.4,
+//         shadowRadius: 2,
+//     },
+
+//     subGymTab: {
+// 		// backgroundColor: 'blue',
+// 		height: 120,
+// 		alignItems: 'center',
+//     	width: 100,
+//     },
+
+//     availabilityHeader: {
+// 		textAlign: 'left',
+// 		fontSize: 11,
+// 		fontWeight: 'bold',
+// 	},
+
+// 	availabilityValue: {
+// 		marginTop: 5,
+// 		textAlign: 'center',
+// 		fontSize: 25,
+// 	},
+
+//     subGymSubHeader: {
+// 		// backgroundColor: 'yellow',
+// 		flexDirection: 'row',
+// 		justifyContent: 'space-between',
+// 		alignItems: 'center',
+// 		borderColor: '#E6ECF0',
+// 		paddingBottom: 2,
+// 		borderBottomWidth: 1,
+// 		marginTop: 7
+
+//     },
+
+//     buttonCC: {
+//         // backgroundColor: 'black',
+//         padding: 20,
+//         flexDirection: 'column',
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//     },
+
+//     buttonContainer: {
+//     	height: 200,
+//     	backgroundColor: 'yellow',
+//         flexDirection: 'column',
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//     },
+
+//     headerContainer: {
+//         backgroundColor: 'blue',
+//         height: 70,
+//         flexDirection: 'column',
+//         justifyContent: 'space-around',
+//     },
+
+//     headerText: {
+//         color: '#14171A',
+//         textAlign: 'left',
+//         fontSize: 30,
+
+//     },
+//     marginText: {
+//     	fontSize: 19,
+//         color: '#D9D11D',//'#14171A',
+//         textAlign: 'left',
+//     },
+
+//     textStyle: {
+//         color: 'white',
+//         textAlign: 'center',
+//         opacity: 1,
+//     },
+//     button: {
+//         width: 230,
+//         backgroundColor: 'green',
+//         flexDirection: 'column',
+//         justifyContent: 'space-around',
+//         height: 100,
+//     },
+
+
+//     subGymHeader: {
+//     	margin: 7,
+//     	width: 50,
+//     	// backgroundColor: 'purple',
+//     	// shadowColor: '#000',
+//      //    shadowOffset: { width: 0.4, height: 0 },
+//      //    shadowOpacity: 0.8,
+//      //    shadowRadius: 2,
+//      	borderWidth: 0.8,
+//      	borderColor: '#657786',
+//     	borderRadius: 50,
+//     	position: 'absolute',
+//     	bottom: 4,
+//     	padding: 4,
+//     },
+//     subGymBody: {
+//     	// flex: 1,
+//     	backgroundColor: 'blue',
+//     	margin: 5,
+//     },
+// });

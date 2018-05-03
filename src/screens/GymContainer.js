@@ -291,10 +291,9 @@ export default class GymContainer extends Component{
 const Dimensions = require('Dimensions');
 var _window = Dimensions.get('window');
 const styles = StyleSheet.create({
-
-    navigation: {
-        opacity: 0.9,
-        color: '#14171A',
+     navigation: {
+        opacity: 0.6,
+        color: '#f0f0f0',
     },
 
     headerTextContainer: {
@@ -302,19 +301,19 @@ const styles = StyleSheet.create({
     },
 
     gymContainer: {
-        backgroundColor: 'transparent',//'white',
-        marginTop: 20,
+        backgroundColor: '#fcfcfc',//'transparent',//'white',
+        marginTop: 0,
         marginBottom: 0,
-        borderRadius: 1,
+        // borderRadius: 1,
         // borderWidth: 2,
         // borderColor: '#E6ECF0',
         padding: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.4,
-        shadowRadius: 2,
+        // shadowColor: '#000',
+        // shadowOffset: { width: 0, height: 1 },
+        // shadowOpacity: 0.4,
+        // shadowRadius: 2,
         width: _window.width,
-    }, 
+    },
 
     buttonCC: {
         // backgroundColor: 'black',
@@ -327,8 +326,8 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer: {
-    	height: 200,
-    	backgroundColor: 'yellow',
+        height: 200,
+        backgroundColor: 'yellow',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
@@ -367,13 +366,98 @@ const styles = StyleSheet.create({
     },
     subGymHeader: {
         width: 200,
-    	backgroundColor: 'purple',
+        backgroundColor: 'purple',
         textAlign: 'center',
-    	padding: 7,
+        padding: 7,
     },
     subGymBody: {
-    	flex: 1,
-    	backgroundColor: 'white',
-    	margin: 5,
+        flex: 1,
+        backgroundColor: 'white',
+        margin: 5,
     },
+
+    // navigation: {
+    //     opacity: 0.9,
+    //     color: '#14171A',
+    // },
+
+    // headerTextContainer: {
+    //     // backgroundColor: 'green',
+    // },
+
+    // gymContainer: {
+    //     backgroundColor: 'transparent',//'white',
+    //     marginTop: 20,
+    //     marginBottom: 0,
+    //     borderRadius: 1,
+    //     // borderWidth: 2,
+    //     // borderColor: '#E6ECF0',
+    //     padding: 10,
+    //     shadowColor: '#000',
+    //     shadowOffset: { width: 0, height: 1 },
+    //     shadowOpacity: 0.4,
+    //     shadowRadius: 2,
+    //     width: _window.width,
+    // }, 
+
+    // buttonCC: {
+    //     // backgroundColor: 'black',
+    //     borderTopWidth: 1,
+    //     borderColor: '#E6ECF0',
+    //     padding: 20,
+    //     flexDirection: 'column',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    // },
+
+    // buttonContainer: {
+    // 	height: 200,
+    // 	backgroundColor: 'yellow',
+    //     flexDirection: 'column',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    // },
+
+    // headerContainer: {
+    //     // backgroundColor: 'blue',
+    //     width: _window.width,
+    //     height: 70,
+    //     flexDirection: 'row',
+    //     justifyContent: 'space-between',
+    //     alignItems: 'center',
+    // },
+
+    // headerText: {
+    //     color: '#14171A',
+    //     textAlign: 'left',
+    //     fontSize: 30,
+    // },
+    // marginText: {
+    //     color: '#14171A',
+    //     textAlign: 'left',
+    //     marginBottom: 10,
+    // },
+    // textStyle: {
+    //     color: 'white',
+    //     textAlign: 'center',
+    //     opacity: 1,
+    // },
+    // button: {
+    //     width: 230,
+    //     backgroundColor: 'green',
+    //     flexDirection: 'column',
+    //     justifyContent: 'space-around',
+    //     height: 100,
+    // },
+    // subGymHeader: {
+    //     width: 200,
+    // 	backgroundColor: 'purple',
+    //     textAlign: 'center',
+    // 	padding: 7,
+    // },
+    // subGymBody: {
+    // 	flex: 1,
+    // 	backgroundColor: 'white',
+    // 	margin: 5,
+    // },
 });
