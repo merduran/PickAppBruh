@@ -48,7 +48,7 @@ export default class GymContainer extends Component{
             minsFromEnd = (end.getTime() - curr.getTime()) / (60 * 1000);
              if (minsFromEnd <= 60){
                 myThis.setState({
-                    hourString: 'Closing in ' + minsFromEnd + ' minutes',
+                    hourString: 'Closing in ' + Math.ceil(minsFromEnd) + ' minutes',
                     alert: true,
                 });
             } else {
@@ -62,7 +62,7 @@ export default class GymContainer extends Component{
             minsFromStart = (start.getTime() - curr.getTime()) / (60 * 1000);
             if (minsFromStart <= 60){
                 myThis.setState({
-                    hourString: 'Opening in ' + minsFromStart + ' minutes',
+                    hourString: 'Opening in ' + Math.ceil(minsFromStart) + ' minutes',
                     alert: true,
                 });
             } else {

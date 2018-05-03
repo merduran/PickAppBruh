@@ -103,7 +103,7 @@ class HomeScreen extends Component {
         } else {
             this.props.navigator.push({
                 screen: 'PickApp.Screens.' + screen + "Screen",
-                title: screen,
+                title: 'screen',
             });
         }
         
