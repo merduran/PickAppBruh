@@ -237,28 +237,28 @@ export default class GymButtonContainer extends Component{
 	  }
 	render(){
         return(
-            <View style={[styles.subGym, {borderColor: this.state.gymColor}]}>
-                <View style={styles.subGymSubHeader1}>
-                    <View style={styles.subGymSubHeader}>
-                        <Image style={styles.image} source={this.state.iconPath}/>
-                        <Text style={[styles.marginText, {color:this.state.gymColor}]}>
+            <View style={[styles.subGym, {borderColor: this.state.gymColor, backgroundColor: 'green'}]}>
+                <View style={[styles.subGymSubHeader1, {backgroundColor: 'yellow'}]}>
+                    <View style={[styles.subGymSubHeader, {backgroundColor: 'blue'}]}>
+                    	<Text style={[styles.marginText, {color:this.state.gymColor, fontSize: 35}]}>
                             {this.state.subGymName}
                         </Text>
+                        <Image style={[styles.image, {marginLeft: 15}]} source={this.state.iconPath}/> 
                     </View>
                 </View>
-                <View style={styles.subGymTabContainer}>
-                    <View style={styles.subGymTab}>
+                <View style={[styles.subGymTabContainer, {backgroundColor: 'red'}]}>
+                    <View style={[styles.subGymTab, {backgroundColor: 'purple'}]}>
                         {/*<Text style={styles.availabilityHeader}>Occupation</Text>*/}
                         <Text style={styles.availabilityValue}>{this.state.availability}</Text>
                         <Text style={{fontSize: 15}}>people total</Text>
                     </View>
-                    <View style={styles.subGymTab}>
+                    <View style={[styles.subGymTab, {backgroundColor: 'purple'}]}>
                         {/*<Text style={styles.availabilityHeader}>Availability</Text>*/}
                         <Text style={styles.availabilityValue}>{this.state.availability2}</Text>
                         <Text style={{fontSize: 15, textAlign: 'center', marginTop: 2}}>{this.state.availabilityText}</Text>
                     </View>
                 </View>
-                <View style={styles.subGymTab1}>
+                <View style={[styles.subGymTab, {backgroundColor: 'purple'}]}>
                     {/*<Text style={styles.availabilityHeader}>Coming Up</Text>*/}
                     <View style={styles.upcomingEventsContainer}>
  						<Alert upcomingEvents={this.state.upcomingEvents} happeningEvents={this.state.happeningEvents}></Alert>
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     },
     image: {
         // flex: 0.3,
-        width: 25,
+        width: 35,
         height: 25,
         resizeMode: 'contain',
         alignItems: 'center',
@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         borderColor: '#E6ECF0',
-        width: 150,
+        // paddingRight: 
         // paddingBottom: 2,
         // borderBottomWidth: 1,
         // marginTop: 7
