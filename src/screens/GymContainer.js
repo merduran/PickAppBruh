@@ -43,7 +43,7 @@ export default class GymContainer extends Component{
         var end = new Date(new Date(myThis.state.openHours.endTime).getTime() + 4 * 60 * 60 * 1000);
         var minsFromEnd;
         var minsFromStart;
-        curr = new Date(new Date("2018-05-01T03:30:00").getTime() + 4 * 60 * 60 * 1000);
+        curr = new Date();
         if (curr >= start && curr <= end){
             minsFromEnd = (end.getTime() - curr.getTime()) / (60 * 1000);
              if (minsFromEnd <= 60){

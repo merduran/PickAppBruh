@@ -14,29 +14,28 @@ import { NavigationToolBarIOS } from 'react-native-navigation';
 export default class Alert extends Component{
 	constructor(props){
 		super(props);
+        console.log("this.props.happeningEvents = ", this.props.happeningEvents)
+        console.log("this.props.upcomingEvents = ", this.props.upcomingEvents)
 	}
 
 	render(){
-        
-        if (this.props.count){
-            if (this.props.minutesAway){
-                return(
-                    <View style={{backgroundColor: 'red', width: 200, flexDirection: 'row', alignItems: 'center'}}>
-                        <Text style={{marginRight: 5, fontSize: 25}}>{this.props.count}</Text>
-                        <Text style={{marginRight: 5, fontSize: 15}}>events in</Text>
-                        <Text style={{marginRight: 5, fontSize: 25}}>{this.props.minutesAway}</Text>
-                        <Text style={{fontWeight: 'bold', fontSize: 15}}>minutes</Text>
-                    </View>
-                );
-            }
-            return(
-                <View style={{backgroundColor: 'red', width: 200, flexDirection: 'row', alignItems: 'center'}}>
-                    <Text style={{marginRight: 5, fontSize: 25}}>{this.props.count}</Text>
-                    <Text style={{marginRight: 5, fontSize: 15}}>events currently happening</Text>
-                </View>
-            );            
+        var happeningStr;
+        var upcomingStr;
+        if (this.props.happeningEvents){
+            happeningStr = this.props.happeningEvents + " events currently happening";
+        } else {
+            happeningStr = "no events currently happening";
         }
-        return null;
+        if (this.props.upcomingEvents.length){
+            if (this.props.upcomingEvents.length === 1){
+                upcomingStr = this.props.upcomingEvents[1] + " event in " + this.props.upcomingEvents[0];
+            } else {
+                upcomingStr = this.props.upcomingEvents[1] + " event in " + this.props.upcomingEvents[0];
+            }
+        } else {
+            upcomingStr = "no upcoming events";
+        }
+        return <View><Text>{happeningStr}</Text><Text>{upcomingStr}</Text></View>;
 	}
 }
 const Dimensions = require('Dimensions');

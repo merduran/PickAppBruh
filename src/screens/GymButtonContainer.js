@@ -28,7 +28,7 @@ export default class GymButtonContainer extends Component{
 			availability2: '',
 			availabilityText: '',
 			upcomingEvents: [],
-			happeningEvents: [],
+			happeningEvents: 0,
 		};
 		var gymNumber;
 		switch (this.state.gymName){
@@ -41,13 +41,14 @@ export default class GymButtonContainer extends Component{
 		}
 		this.fetchAvailabilityData(this, 'users/' + gymNumber + '/' + this.state.subGymName.toLowerCase());
 		var urlExt;
+		var myThis = this;
 		if (this.state.subGymName !== "Fitness"){
 			if (this.state.subGymName === "Pool"){
 				urlExt = this.state.subGymName.toLowerCase();
 			} else { urlExt = "basketball"}
 			this.fetchCalendarData(this, urlExt);
+			setInterval(function(){myThis.fetchCalendarData(myThis, urlExt)}, 2000);
 		} 
-		var myThis = this;
 		setInterval(function(){ myThis.fetchAvailabilityData(myThis, 'users/' + gymNumber + '/' + myThis.state.subGymName.toLowerCase())}, 2000);
 		
 	}
@@ -96,44 +97,89 @@ export default class GymButtonContainer extends Component{
 	        return response.json();
 	    })
 	    .then(function(myJson) {
+	    	// console.log("myJson = ", myJson);
 	        var closestUpcoming;
 	        upcomingEventsCount = 0;
 	        happeningEventsCount = 0;
+    		// estTime = new Date();
+    		// var options = { timeZone: "America/New_York"}; // you have to know that New York in EST 
+			// console.log(estTime.toLocaleString("en-US", options));
 	        var todayStartHour = new Date(new Date(new Date().toISOString().split("T")[0] + "T00:00:00").getTime() + 4 * 60 * 60 * 1000);
 	        var todayEndHour = new Date(new Date(todayStartHour).getTime() + 24 * 60 * 60 * 1000);
+	        // console.log("todayStartHour = ", todayStartHour);
+	        // console.log("todayEndHour = ", todayEndHour);
 	        var i;
 	        var curr = new Date();
+	        var minutesAway;
+	        // console.log("CURRI = ", curr)
+	     //    var eventStrStart = myJson[j].split(" - ")[0].substring(0, 19);
+		    // var eventDateStart = new Date(new Date(myJson[j].split(" - ")[0].substring(0, 19)).getTime() + 4 * 60 * 60 * 1000);
 	        for (i = 0; i < myJson.length; i++){
+	        	// console.log("myJson[i] = ", myJson[i]);
+	        	if (new Date(new Date(myJson[i].split(" - ")[0].substring(0, 19)).getTime() + 4 * 60 * 60 * 1000) > todayEndHour){
+		        	// console.log("eventDateStart = ", new Date(new Date(myJson[i].split(" - ")[0].substring(0, 19)).getTime() + 4 * 60 * 60 * 1000), ", todayEndHour = ", todayEndHour)
+		        	break;
+		        }
 	        	var firstUpcomingStart = new Date(new Date(myJson[i].split(" - ")[0].substring(0, 19)).getTime() + 4 * 60 * 60 * 1000);
-	        	if (firstUpcomingStart >= curr && firstUpcomingStart <= todayEndHour){
+				// console.log("firstUpcomingStart = ", firstUpcomingStart);
+				// console.log("curr = ", curr);
+	        	// console.log("firstUpcomingStart - curr = ", firstUpcomingStart - curr);
+	        	if (firstUpcomingStart - curr > 0 && firstUpcomingStart - curr < 60 * 60 * 1000){
+	        		// console.log("first upcoming event detected = ", myJson[i]);
 	        		closestUpcoming = firstUpcomingStart;
 	        		upcomingEventsCount++;
+	        		i++;
 	        		break;
-	        	} else if (firstUpcomingStart >= todayStartHour && firstUpcomingStart <= todayEndHour){
+	        	} else if (firstUpcomingStart - todayStartHour >= 0 && todayEndHour - firstUpcomingStart >= 0){
+	        		// console.log("event happening right now = ", myJson[i]);
 	        		happeningEventsCount++
 	        	}
 	        }
-	        if (upcomingEventsCount){
-	        	var minutesAway;
+	        // console.log("upcomingEventsCount = ", upcomingEventsCount, ", happeningEventsCount = ", happeningEventsCount);
+	        // console.log("i = ", i)
+	        if (upcomingEventsCount || happeningEventsCount){
+	        	// console.log("upcomingEventsCount is not zero = ", upcomingEventsCount);
 	        	for (var j = i; j < myJson.length; j++){
-		        	var events = myJson[j].split(" - ")
+	        		// console.log("BABANIN = ", myJson[j]);
+		        	var events = myJson[j].split(" - ");
 		        	var eventStrStart = events[0].substring(0, 19);
 		        	var eventDateStart = new Date(new Date(eventStrStart).getTime() + 4 * 60 * 60 * 1000);
 		        	var eventStrEnd = events[1].substring(0, 19);
 		        	var eventDateEnd = new Date(new Date(eventStrEnd).getTime() + 4 * 60 * 60 * 1000);
 		        	var diffFromStart = eventDateStart - curr;
-		        	if (diffFromStart >= 0 && eventDateStart.getTime() === closestUpcoming.getTime()){
+		        	// console.log("curr = ", curr)
+	        		// console.log("j index = ", j, ", events = ", events, ", eventStrStart = ", eventStrStart, ", eventDateStart = ", eventDateStart, ", eventStrEnd = ", eventStrEnd, ", eventDateEnd = ", eventDateEnd, ", diffFromStart = ", diffFromStart, ", curr = ", curr)
+		        	if (eventDateStart > todayEndHour){
+		        		// console.log("eventDateStart = ", eventDateStart)
+		        		break;
+		        	}	
+		        	if (eventDateStart - curr >= 0 && eventDateStart.getTime() === closestUpcoming.getTime()){
 		        		closestUpcoming = eventDateStart;
 		        		upcomingEventsCount++;
 		        		minutesAway = diffFromStart;
 		        	} else if (curr >= eventDateStart && curr <= eventDateEnd){
 		        		happeningEventsCount++;
+		        	} else {
+		        		break;
 		        	}
 		        }
-		        myThis.setState({
-		        	upcomingEvents: [Math.ceil(minutesAway/(60*1000)), upcomingEventsCount],
-		        	happeningEvents: happeningEventsCount,
-		        });
+		        // console.log("ANNEN")
+		        if (upcomingEventsCount){
+		        	if (minutesAway === undefined){
+		        		// console.log("closestUpcoming = ", closestUpcoming)
+		        		// console.log("curr = ", curr)
+		        		minutesAway = closestUpcoming.getTime() - curr.getTime();
+		        	}
+		        	// console.log("minutesAway = ", minutesAway);
+		        	myThis.setState({
+			        	upcomingEvents: [ Math.ceil(minutesAway/(60*1000)), upcomingEventsCount ],
+			        });
+		        }
+		        if (happeningEventsCount){
+		        	myThis.setState({
+			        	happeningEvents: happeningEventsCount,
+			        });
+		        }
 	        }
 	    });
 	  }
@@ -160,8 +206,7 @@ export default class GymButtonContainer extends Component{
 					<View style={styles.subGymTab}>
 						<Text style={styles.availabilityHeader}>Coming Up</Text>
 						<View style={styles.upcomingEventsContainer}>
-							<Alert count={this.state.upcomingEvents[1]} minutesAway={this.state.upcomingEvents[0]}></Alert>
-							<Alert count={this.state.happeningEvents[1]} minutesAway={null}></Alert>
+							<Alert upcomingEvents={this.state.upcomingEvents} happeningEvents={this.state.happeningEvents}></Alert>
 						</View>
 						<TouchableOpacity style={styles.subGymHeader} onPress={() => this.props.pushScreen("FacilityCalendarPage", {gymName: this.state.gymName, subGymName: this.state.subGymName})}><Text style={{fontSize: 7, color: '#657786', textAlign: 'center'}}>See more</Text></TouchableOpacity>
 					</View>

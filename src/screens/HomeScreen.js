@@ -97,7 +97,7 @@ class HomeScreen extends Component {
         if (screen === "FacilityCalendarPage"){
             this.props.navigator.push({
                 screen: 'PickApp.Screens.' + screen,
-                title: screen,
+                title: 'Calendar',
                 passProps: props,
             });
         } else {
