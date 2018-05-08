@@ -44,7 +44,7 @@ export default class FacilityCalendar extends Component {
 
   render() {
     var curr = new Date();
-    var currString = curr.toISOString().split("T")[0]
+    var currString = this.adjustTimeZoneInISOString(curr).split("T")[0]
     var maxDate = this.adjustTimeZoneInISOString(new Date(curr.getTime() + 7 * 24 * 60 * 60 * 1000)).split("T")[0];
     if (this.state.render){
         var myThis = this;
@@ -126,10 +126,13 @@ export default class FacilityCalendar extends Component {
 
 
   loadItems(day) {
+    console.log("day = ", day)
     this.state.items = [];
     var strTime = this.adjustTimeZoneInISOString(new Date()).split("T")[0]
-    if (!this.state.items[strTime] && strTime != this.adjustTimeZoneInISOString(day).split("T")[0]) { 
-      this.state.items[strTime] = []; 
+    // console.log("this.state.items[strTime] = ", this.state.items[strTime])
+    if (!this.state.items[strTime]) {  this.state.items[strTime] = []; }
+    if (strTime != this.adjustTimeZoneInISOString(day).split("T")[0]) {
+    console.log("ANNENIN AMI") 
       this.state.items[strTime].push({
         index: 0,
         date: strTime,
@@ -140,11 +143,14 @@ export default class FacilityCalendar extends Component {
         height: 10,
       });
     }
+    // strTime = this.adjustTimeZoneInISOString(this.adjustTimeZoneInDate(new Date(new Date(strTime).getTime() + 24 * 60 * 60 * 1000))).split("T")[0]
+    // console.log("strTime update = ", strTime)
       if (this.state.repeatLoading){
         var idx = 0;
         for (let i = 0; i < this.events.length; i++) {
           strTime = this.events[i].date;
           if (!this.state.items[strTime]) { this.state.items[strTime] = []; }
+          console.log("this.events[i] = ", this.events[i])
           this.state.items[strTime].push({
             index: idx,
             date: this.events[i].date,
@@ -159,6 +165,7 @@ export default class FacilityCalendar extends Component {
           } else if (strTime !== this.events[i + 1].date){
             idx = 0
           } else { idx++; }
+          // strTime = this.adjustTimeZoneInISOString(this.adjustTimeZoneInDate(new Date(new Date(strTime).getTime() + 24 * 60 * 60 * 1000))).split("T")[0]
         }
           const newItems = {};
           Object.keys(this.state.items).forEach(key => {
@@ -171,7 +178,22 @@ export default class FacilityCalendar extends Component {
       }
   }
 
+  getNextEvent(myThis, nested_idx, idx){
+    var curr_idx_date = new Date(this.idx).getTime();
+    var next_idx = new Date(curr_idx_date + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+    if (nested_idx === myThis.state.items[idx].length){
+      nested_idx = 0;
+      idx = next_idx;
+    } else {
+      nested_idx++;
+    }
+    if (myThis.state.items[idx][nested_idx] === undefined) { return { date: null } }    
+    return myThis.state.items[idx][nested_idx];
+  }
+
+
   renderItem(item) {
+    // console.log("annen")
     if (this.idx === 0) {
       this.idx = this.adjustTimeZoneInISOString(new Date()).split("T")[0];
     }
@@ -180,21 +202,28 @@ export default class FacilityCalendar extends Component {
       return
     }
     var lastValue = this.state.items[lastKey];
-    if (this.adjustTimeZoneInDate(new Date(lastValue[0].date)).getTime() < this.adjustTimeZoneInDate(new Date(this.idx)).getTime()){
-      return;
+    // console.log("lastValue = ", lastValue)
+    if (lastValue.length){
+      // console.log("SICIS")
+      if (this.adjustTimeZoneInDate(new Date(lastValue[0].date)).getTime() < this.adjustTimeZoneInDate(new Date(this.idx)).getTime()){
+        return;
+      }
     }
     item = this.state.items[this.idx]
     var curr = this.adjustTimeZoneInDate(new Date(this.idx));
     var court_1 = []; var court_2 = []; var court_3 = []; var court_4 = [];
-          for (var i = 0; i < item.length; i++){
-            if (item[i].courts.includes(1)){
-              court_1.push(
-                <View style={styles.item_omac} key={i}>
-                  <Text style={{fontWeight: 'bold', fontSize: 12, marginBottom: 5}}>{item[i].eventTitle}</Text>
-                  <Text style={{fontWeight: 'normal', fontSize: 12}}> {item[i].startTime} - {item[i].endTime}</Text>
-                </View>
-              );
-            }
+    if (item === undefined) {
+      item = []
+    }
+    for (var i = 0; i < item.length; i++){
+      if (item[i].courts.includes(1)){
+        court_1.push(
+          <View style={styles.item_omac} key={i}>
+            <Text style={{fontWeight: 'bold', fontSize: 12, marginBottom: 5}}>{item[i].eventTitle}</Text>
+            <Text style={{fontWeight: 'normal', fontSize: 12}}> {item[i].startTime} - {item[i].endTime}</Text>
+          </View>
+        );
+      }
             if (item[i].courts.includes(2)){
               court_2.push(
                 <View style={styles.item_omac} key={i}>
@@ -223,17 +252,7 @@ export default class FacilityCalendar extends Component {
       var sum_len = court_1.length + court_2.length + court_3.length + court_4.length;
       var toRender;
       if (sum_len === 0 || item[0].eventTitle === "ANNENIN AMI"){
-        if (item[0].eventTitle === "ANNENIN AMI"){
-          var i = 0
-          toRender = item.map((event) => {
-            i++;
-            return(
-                <View style={styles.item_nelson} key={i}>
-                  <Text style={{fontWeight: 'bold', fontSize: 12, marginBottom: 5}}>No Upcoming Events</Text>
-                </View>
-            );
-          });
-        } else {
+        if (sum_len === 0){
           var i = 0
           toRender = item.map((event) => {
             i++;
@@ -244,9 +263,19 @@ export default class FacilityCalendar extends Component {
                 </View>
             );
           });
-        }
-        this.idx = new Date(curr.getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
-        var curr = new Date(item[0].date + "T12:00:00");
+        } else if (item.length){
+          var i = 0
+          toRender = item.map((event) => {
+            i++;
+            return(
+                <View style={styles.item_nelson} key={i}>
+                  <Text style={{fontWeight: 'bold', fontSize: 12, marginBottom: 5}}>No Upcoming Events</Text>
+                </View>
+            );
+          });
+        } 
+        var curr = this.adjustTimeZoneInDate(new Date(this.idx));
+        this.idx = this.adjustTimeZoneInISOString(new Date(curr.getTime() + 24 * 60 * 60 * 1000)).split("T")[0];
         var day = curr.getDate();
         var month = curr.getMonth();
         return (
@@ -263,11 +292,10 @@ export default class FacilityCalendar extends Component {
       if (court_2.length === 0){ court_2.push( <Text key={0} style={{fontStyle: 'italic'}}>No Events</Text> ); }
       if (court_3.length === 0){ court_3.push( <Text key={0} style={{fontStyle: 'italic'}}>No Events</Text> ); }
       if (court_4.length === 0){ court_4.push( <Text key={0} style={{fontStyle: 'italic'}}>No Events</Text> ); }
-      var curr = new Date(item[0].date + "T12:00:00");
+      var curr = this.adjustTimeZoneInDate(new Date(this.idx));
       var day = curr.getDate();
       var month = curr.getMonth();
-      console.log("idx = ", this.idx)
-      this.idx = new Date(curr.getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+      this.idx = this.adjustTimeZoneInISOString(new Date(curr.getTime() + 24 * 60 * 60 * 1000)).split("T")[0];
       return (
         <View>
           <View style={{paddingLeft: 10, marginTop: 10, marginBottom: 5, display: 'flex', flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'flex-start'}}>
@@ -304,6 +332,151 @@ export default class FacilityCalendar extends Component {
       );
 
   }
+
+  // renderItem(item) {
+  //   console.log("item = ", item)
+  //   if (this.idx === 0) {
+  //     this.idx = new Date(new Date().getTime() - 4 * 60 * 60 * 1000).toISOString().split("T")[0];
+  //   }
+  //   // console.log("this.idx = ", this.idx);
+  //   // console.log("this.state.items = ", this.state.items)
+  //   var lastKey = Object.keys(this.state.items).reverse()[0];
+  //   if (lastKey === undefined){
+  //     return
+  //   }
+  //   // console.log("lastKey = ", lastKey)
+  //   var lastValue = this.state.items[lastKey];
+  //   // console.log("LAST = ", lastValue);
+
+  //   // console.log(this.state.items);
+  //   // console.log("new Date(lastValue.date).getTime() = ", new Date(lastValue[0].date).getTime(), ", new Date(this.idx).getTime() = ", new Date(this.idx).getTime())
+  //   if (new Date(lastValue[0].date).getTime() < new Date(this.idx).getTime()){
+  //     return;
+  //   }
+  //   // console.log("this.idx = ", this.idx)
+  //   item = this.state.items[this.idx]
+  //   // console.log("item = ", item)
+  //   var curr = new Date(this.idx);
+  //   var court_1 = []; var court_2 = []; var court_3 = []; var court_4 = [];
+  //         for (var i = 0; i < item.length; i++){
+  //           if (item[i].courts.includes(1)){
+  //             court_1.push(
+  //               <View style={styles.item_omac} key={i}>
+  //                 <Text style={{fontWeight: 'bold', fontSize: 12, marginBottom: 5}}>{item[i].eventTitle}</Text>
+  //                 <Text style={{fontWeight: 'normal', fontSize: 12}}> {item[i].startTime} - {item[i].endTime}</Text>
+  //               </View>
+  //             );
+  //           }
+  //           if (item[i].courts.includes(2)){
+  //             court_2.push(
+  //               <View style={styles.item_omac} key={i}>
+  //                 <Text style={{fontWeight: 'bold', fontSize: 12, marginBottom: 5}}>{item[i].eventTitle}</Text>
+  //                 <Text style={{fontWeight: 'normal', fontSize: 12}}> {item[i].startTime} - {item[i].endTime}</Text>
+  //               </View>
+  //             );
+  //           } 
+  //           if (item[i].courts.includes(3)){
+  //             court_3.push(
+  //               <View style={styles.item_omac} key={i}>
+  //                 <Text style={{fontWeight: 'bold', fontSize: 12, marginBottom: 5}}>{item[i].eventTitle}</Text>
+  //                 <Text style={{fontWeight: 'normal', fontSize: 12}}> {item[i].startTime} - {item[i].endTime}</Text>
+  //               </View>
+  //             );
+  //           } 
+  //           if (item[i].courts.includes(4)){
+  //             court_4.push(
+  //               <View style={styles.item_omac} key={i}>
+  //                 <Text style={{fontWeight: 'bold', fontSize: 12, marginBottom: 5}}>{item[i].eventTitle}</Text>
+  //                 <Text style={{fontWeight: 'normal', fontSize: 12}}> {item[i].startTime} - {item[i].endTime}</Text>
+  //               </View>
+  //             );
+  //           }
+  //         }
+  //     var sum_len = court_1.length + court_2.length + court_3.length + court_4.length;
+  //     var toRender;
+  //     console.log("item[0].eventTitle = ", item[0].eventTitle)
+  //     if (sum_len === 0 || item[0].eventTitle === "ANNENIN AMI"){
+  //       if (item[0].eventTitle === "ANNENIN AMI"){
+  //         var i = 0
+  //         toRender = item.map((event) => {
+  //           i++;
+  //           return(
+  //               <View style={styles.item_nelson} key={i}>
+  //                 <Text style={{fontWeight: 'bold', fontSize: 12, marginBottom: 5}}>No Upcoming Events</Text>
+  //               </View>
+  //           );
+  //         });
+  //       } else {
+  //         var i = 0
+  //         toRender = item.map((event) => {
+  //           i++;
+  //           return(
+  //               <View style={styles.item_nelson} key={i}>
+  //                 <Text style={{fontWeight: 'bold', fontSize: 12, marginBottom: 5}}>{event.eventTitle}</Text>
+  //                 <Text style={{fontWeight: 'normal', fontSize: 12}}> {event.startTime} - {event.endTime}</Text>
+  //               </View>
+  //           );
+  //         });
+  //       }
+  //       this.idx = new Date(curr.getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+  //       var curr = new Date(item[0].date + "T12:00:00");
+  //       var day = curr.getDate();
+  //       var month = curr.getMonth();
+  //       return (
+  //         <View style={{marginTop: 0}}>
+  //           <View style={{paddingLeft: 10, marginTop: 10, marginBottom: 5, display: 'flex', flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'flex-start'}}>
+  //             <Text style={{marginLeft: 5, fontSize: 30, textAlign: 'left', opacity: .8, alignSelf: 'flex-start'}}>{day}</Text>
+  //             <Text style={{marginLeft: 2, marginTop: 5, fontSize: 15, textAlign: 'left', opacity: .7, alignSelf: 'flex-start'}}>{months[month]}</Text>
+  //           </View>
+  //           {toRender}
+  //         </View>
+  //       );
+  //     }
+  //     if (court_1.length === 0){ court_1.push( <Text key={0} style={{fontStyle: 'italic'}}>No Events</Text> ); }
+  //     if (court_2.length === 0){ court_2.push( <Text key={0} style={{fontStyle: 'italic'}}>No Events</Text> ); }
+  //     if (court_3.length === 0){ court_3.push( <Text key={0} style={{fontStyle: 'italic'}}>No Events</Text> ); }
+  //     if (court_4.length === 0){ court_4.push( <Text key={0} style={{fontStyle: 'italic'}}>No Events</Text> ); }
+  //     var curr = new Date(item[0].date + "T12:00:00");
+  //     var day = curr.getDate();
+  //     var month = curr.getMonth();
+  //     console.log("idx = ", this.idx)
+  //     this.idx = new Date(curr.getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+  //     return (
+  //       <View>
+  //         <View style={{paddingLeft: 10, marginTop: 10, marginBottom: 5, display: 'flex', flex: 1, flexDirection: 'row', alignContent: 'center', justifyContent: 'flex-start'}}>
+  //           <Text style={{marginLeft: 5, fontSize: 30, textAlign: 'left', opacity: .8, alignSelf: 'flex-start'}}>{day}</Text>
+  //           <Text style={{marginLeft: 2, marginTop: 5, fontSize: 15, textAlign: 'left', opacity: .7, alignSelf: 'flex-start'}}>{months[month]}</Text>
+  //         </View>
+  //         <View style={styles.dayContainer}>
+  //           <View style={styles.basketballCourt}>
+  //             <Text style={styles.columnTitleContainer}>Court 1</Text>
+  //             <View style={styles.dayEventsContainer}>
+  //               {court_1}
+  //             </View>
+  //           </View>
+  //           <View style={styles.basketballCourt}>
+  //             <Text style={styles.columnTitleContainer}>Court 2</Text>
+  //             <View style={styles.dayEventsContainer}>
+  //               {court_2}
+  //             </View>
+  //           </View>
+  //           <View style={styles.basketballCourt}>
+  //             <Text style={styles.columnTitleContainer}>Court 3</Text>
+  //             <View style={styles.dayEventsContainer}>
+  //               {court_3}
+  //             </View>
+  //           </View>
+  //           <View style={styles.basketballCourt}>
+  //             <Text style={styles.columnTitleContainer}>Court 4</Text>
+  //             <View style={styles.dayEventsContainer}>
+  //               {court_4}
+  //             </View>
+  //           </View>
+  //         </View>
+  //       </View>
+  //     );
+
+  // }
 
   renderEmptyDate() {
     return (
