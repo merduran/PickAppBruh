@@ -16,7 +16,6 @@ import { NavigationToolBarIOS } from 'react-native-navigation';
 export default class GymContainer extends Component{
 	constructor(props){
 		super(props);
-        // console.log("MURAT = ", this.props.navigator);
 		this.state = {
 			gymName: this.props.gymName,
 			subGymNames: this.props.subGymNames,
@@ -30,11 +29,6 @@ export default class GymContainer extends Component{
 		};
         this.header = this.state.gymName;
         this.fetchHours();
-        // this.checkIfOpen();
-        // this.checkIfOpen();
-        // console.log("screenWidth = ", _window.);
-        // this.subHeader = 'Choose a Sport';
-        // console.log("CONStRUC")
 	}
 
     checkIfOpen(myThis){
@@ -77,7 +71,6 @@ export default class GymContainer extends Component{
                 alert: false,
             });
         } 
-        console.log("checking")
     }
 
     replaceAt(str, indexStart, indexEnd, replacement) {
@@ -168,7 +161,6 @@ export default class GymContainer extends Component{
     }
 
     changeAvailability(availabilityData){
-        // console.log("availabilityData = ", availabilityData);
         this.setState({
             availability: availabilityData,
         });
@@ -251,11 +243,8 @@ export default class GymContainer extends Component{
     }
 
     displayHeader(){
-        // console.log("C = ", this.state.openHours);
-        // console.log("this.state.openHours.startTime = ", this.state.openHours)
         var isOpen = "Currently Open"
         var date = new Date();
-        // console.log("date = ", date.getHours() % 12);
         return(
             <View style={styles.headerContainer}>   
                 <View style={styles.headerTextContainer}>
@@ -272,9 +261,7 @@ export default class GymContainer extends Component{
     }
 
 	render(){
-        // console.log('render biatch = ', Object.keys(this.state.openHours).length);
         if (Object.keys(this.state.openHours).length > 0){
-            // console.log("ANNEN")
             return(
                 <View style={styles.gymContainer}>
                    {this.displayHeader()}

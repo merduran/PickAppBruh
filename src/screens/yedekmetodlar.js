@@ -105,6 +105,44 @@ export default class GymButtonContainer extends Component{
             });
     }
 
+	// fetchAvailabilityData(myThis, urlExt){
+	// 	fetch('https://pickapp-test.herokuapp.com/api/' + urlExt)
+	// 	.then(function(response) {
+	// 		return response.json();
+	// 	})
+	// 	.then(function(myJson) {
+	// 		var avail;
+	// 		switch(myJson.availability){
+	// 			case undefined: 
+	// 				avail = myJson.count;
+	// 				break;
+	// 			default: 
+	// 				avail = myJson.availability
+	// 		}	
+	// 		var value;
+	// 		var txt;
+	// 		if (myThis.state.subGymName == 'Fitness') {
+	// 		    value = Math.round(Number(avail*(100/181))) + "%";
+	// 		    txt = 'of Max\nCapacity';
+	// 		} else if (myThis.state.subGymName == 'Pool'){
+	// 			value = Math.round(Number(avail/8));
+	// 			txt = 'People per\nLane';
+	// 		} else if(myThis.state.subGymName == 'Basketball') {
+	// 			value = Math.round(Number(avail/4));
+	// 			txt = 'People per\nCourt';
+	// 		} else if (myThis.state.subGymName == 'Track'){
+	// 			value = Math.round(Number(avail/6));
+	// 			txt = 'People per\nLane';
+	// 		}
+	// 		if (avail !== 0 && value === 0){ value++; }
+	// 		myThis.setState({
+	// 		    availability: avail,
+	// 		    availability2: value,
+	// 		    availabilityText: txt
+	// 		});
+	// 	});
+	// }
+
     adjustTimeZoneInISOString(date){
         var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         var localISOTime = (new Date(date - tzoffset)).toISOString().slice(0, -1);
@@ -121,33 +159,50 @@ export default class GymButtonContainer extends Component{
 	        return response.json();
 	    })
 	    .then(function(myJson) {
+	    	console.log("myJson = ", myJson);
 	        var closestUpcoming;
-	        var upcomingEventsCount = 0;
-	        var happeningEventsCount = 0;
-            var todayStartHour = myThis.adjustTimeZoneInDate(new Date(myThis.adjustTimeZoneInISOString(new Date()).split("T")[0] + "T00:00:00"));
+	        upcomingEventsCount = 0;
+	        happeningEventsCount = 0;
+            var todayStartHour = myThis.adjustTimeZoneInDate(new Date(myThis.adjustTimeZoneInISOString(new Date("2018-05-12")).split("T")[0] + "T00:00:00"));
 	        var todayEndHour = new Date(new Date(todayStartHour).getTime() + 24 * 60 * 60 * 1000);
-	        var curr = new Date();
+	        console.log("todayStartHour = ", todayStartHour);
+	        console.log("todayEndHour = ", todayEndHour);
+	        var i;
+	        var curr = myThis.adjustTimeZoneInDate(new Date("2018-05-11T18:00:00"));
+            console.log("curr  = ", curr)
 	        var minutesAway;
             var sameDateAsClosest = true;
-	        for (var i = 0; i < myJson.length; i++){
+	        for (i = 0; i < myJson.length; i++){
                 var parsedEvent = myJson[i].split(" - ");
+                // console.log("parsedEvent = ", parsedEvent)
                 var eventStartDate = myThis.adjustTimeZoneInDate(new Date(parsedEvent[0].substring(0, 19)));
                 var eventEndDate = myThis.adjustTimeZoneInDate(new Date(parsedEvent[1].substring(0, 19)));
+                // console.log("eventStartDate = ", eventStartDate)
+                // console.log("eventEndDate = ", eventEndDate)
 	        	if (eventStartDate > todayEndHour){
+                    // console.log("returning")
 		        	break;
 		        }
                 if (closestUpcoming) { sameDateAsClosest =  eventStartDate.getTime() === closestUpcoming.getTime()}
 	        	var dif = eventStartDate - curr;
+                // console.log("eventStartDate = ", eventStartDate)
+                // console.log("curr = ", curr)
+                // console.log("minutes from curr = ", dif)
                 if (eventStartDate > curr) {
                     if (dif <= 3600000 && sameDateAsClosest){
+                        console.log("eventStartDate = ", myJson[i])
                         closestUpcoming = eventStartDate;
                         minutesAway = dif;
                         upcomingEventsCount++;
                     }
 	        	} else if (eventEndDate > curr){
+                    console.log("happening event is = ", myJson[i])
                     happeningEventsCount++
                 }
 	        }
+
+            // console.log("upcomingEvents = ", upcomingEventsCount)
+            // console.log("happeningEventsCount = ", happeningEventsCount)
 
             if (upcomingEventsCount){
                 myThis.setState({
@@ -159,6 +214,59 @@ export default class GymButtonContainer extends Component{
                     happeningEvents: happeningEventsCount,
                 });
             }
+
+
+
+
+
+
+         //    return
+	        // // console.log("upcomingEventsCount = ", upcomingEventsCount, ", happeningEventsCount = ", happeningEventsCount);
+	        // // console.log("i = ", i)
+	        // if (upcomingEventsCount || happeningEventsCount){
+	        // 	// console.log("upcomingEventsCount is not zero = ", upcomingEventsCount);
+	        // 	for (var j = i; j < myJson.length; j++){
+	        // 		// console.log("BABANIN = ", myJson[j]);
+		       //  	var events = myJson[j].split(" - ");
+		       //  	var eventStrStart = events[0].substring(0, 19);
+		       //  	var eventDateStart = new Date(new Date(eventStrStart).getTime() + 4 * 60 * 60 * 1000);
+		       //  	var eventStrEnd = events[1].substring(0, 19);
+		       //  	var eventDateEnd = new Date(new Date(eventStrEnd).getTime() + 4 * 60 * 60 * 1000);
+		       //  	var diffFromStart = eventDateStart - curr;
+		       //  	// console.log("curr = ", curr)
+	        // 		// console.log("j index = ", j, ", events = ", events, ", eventStrStart = ", eventStrStart, ", eventDateStart = ", eventDateStart, ", eventStrEnd = ", eventStrEnd, ", eventDateEnd = ", eventDateEnd, ", diffFromStart = ", diffFromStart, ", curr = ", curr)
+		       //  	if (eventDateStart > todayEndHour){
+		       //  		// console.log("eventDateStart = ", eventDateStart)
+		       //  		break;
+		       //  	}	
+		       //  	if (eventDateStart - curr >= 0 && eventDateStart.getTime() === closestUpcoming.getTime()){
+		       //  		closestUpcoming = eventDateStart;
+		       //  		upcomingEventsCount++;
+		       //  		minutesAway = diffFromStart;
+		       //  	} else if (curr >= eventDateStart && curr <= eventDateEnd){
+		       //  		happeningEventsCount++;
+		       //  	} else {
+		       //  		break;
+		       //  	}
+		       //  }
+		       //  // console.log("ANNEN")
+		       //  if (upcomingEventsCount){
+		       //  	if (minutesAway === undefined){
+		       //  		// console.log("closestUpcoming = ", closestUpcoming)
+		       //  		// console.log("curr = ", curr)
+		       //  		minutesAway = closestUpcoming.getTime() - curr.getTime();
+		       //  	}
+		       //  	// console.log("minutesAway = ", minutesAway);
+		       //  	myThis.setState({
+			      //   	upcomingEvents: [ Math.ceil(minutesAway/(60*1000)), upcomingEventsCount ],
+			      //   });
+		       //  }
+		       //  if (happeningEventsCount){
+		       //  	myThis.setState({
+			      //   	happeningEvents: happeningEventsCount,
+			      //   });
+		       //  }
+	        // }
 	    });
 	}
 
@@ -195,6 +303,7 @@ export default class GymButtonContainer extends Component{
             colorCode = '#B82A22';
         }
     	if (this.state.subGymName !== "Fitness"){
+            console.log("GOLLUM AQ")
 			return(
                 <View>
                     <Text style={{fontSize: 22, width: 300, textAlign: 'left', marginTop: 10}}>Coming Up</Text>
@@ -208,6 +317,12 @@ export default class GymButtonContainer extends Component{
             );
 		}
 	}
+
+    // displayEventsOfTheDay(){
+    //     if (this.state.subGymName !== "Fitness"){
+    //         return  <TouchableOpacity style={styles.subGymHeader} onPress={() => this.props.pushScreen("FacilityCalendarPage", {gymName: this.state.gymName, subGymName: this.state.subGymName})}><Text style={{fontSize: 15, color: '#657786', textAlign: 'center'}}>See more</Text></TouchableOpacity>
+    //     }
+    // }
 
     returnGymHeader(){
         if (this.state.subGymName === "Fitness"){
