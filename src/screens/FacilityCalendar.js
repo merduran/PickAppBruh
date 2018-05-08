@@ -45,7 +45,7 @@ export default class FacilityCalendar extends Component {
   render() {
     var curr = new Date();
     var currString = this.adjustTimeZoneInISOString(curr).split("T")[0]
-    var maxDate = this.adjustTimeZoneInISOString(new Date(curr.getTime() + 7 * 24 * 60 * 60 * 1000)).split("T")[0];
+    var maxDate = this.adjustTimeZoneInISOString(new Date("2018-05-13")).split("T")[0];
     if (this.state.render){
         var myThis = this;
         return (
